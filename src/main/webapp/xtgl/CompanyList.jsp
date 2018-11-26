@@ -56,6 +56,7 @@
                 table.reload('testReload', {
                     url: '/Company/findAll.action',
                     page: {
+
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
@@ -64,6 +65,7 @@
                 });
             }
         };
+
         $('.layui-table-tool-temp .layui-inline').on('click',function(){
             layer.open({
                 title: '增加',
