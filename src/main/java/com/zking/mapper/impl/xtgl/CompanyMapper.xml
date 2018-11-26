@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.xtgl.ICompanyMapper">
+    <select id="findAll" resultType="Company" parameterType="Company">
+       select * FROM Company
+       <where>
+           <if test="CompName!=null">
+               and CompName like '%${CompName}%'
+           </if>
+       </where>
+        limit #{page},#{limit}
+    </select>
+    <select id="getMax" resultType="java.lang.Integer" parameterType="Company">
+        select count(CompName) from Company where CompName like '%${CompName}%'
+    </select>
+    <select id="findonly" resultType="Company" parameterType="Company">
+        select * from Company where Compid=#{Compid}
+    </select>
+    <insert id="add" parameterType="Company">
+        INSERT INTO Company VALUES (#{Compid},#{CompCoding},#{CompName},#{CompAttribute},#{Prov},#{Dist},#{Coun},#{CompAddress},#{CompEmailAddress},#{CompEmailPassword})
+    </insert>
+    <update id="edit">
+        UPDATE Company SET Compid=#{Compid},CompCoding=#{CompCoding},CompName=#{CompName},CompAttribute=#{CompAttribute},
+        Prov=#{Prov},Dist=#{Dist},Coun=#{Coun},CompAddress=#{CompAddress},CompEmailAddress=#{CompEmailAddress},
+        CompEmailPassword=#{CompEmailPassword} where Compid=#{Compid}
+    </update>
+    <delete id="remove" parameterType="Company">
+        DELETE FROM company WHERE Compid=#{Compid}
+    </delete>
+    <select id="getEnd" parameterType="Company">
+        SELECT MAX(SUBSTR(compCoding, -4))+1 FROM Company WHERE Prov LIKE '%${Prov}%'
+    </select>
+    <select id="findByListId" parameterType="Company" resultType="Company">
+        select from Company where CompId in (#{name})
+    </select>
+    <select id="findCompanyId" resultType="Company">
+        select * from Campany
+    </select>
+    <select id="FindCompanyByAttribute" resultType="Company">
+        select * from Company where CompAttribute='销售公司'
+    </select>
+    <select id="FindCompanyByAttribute2" resultType="Company">
+        select * from Company where CompAttribute='工厂'
+    </select>
+</mapper>

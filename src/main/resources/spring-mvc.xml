@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--1) 排除扫描@Component、@Repository、@Service 注解-->
+    <context:component-scan base-package="com.zking"></context:component-scan>
+    <!--2) 此标签默认注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
+    <!--两个bean，这两个bean是spring MVC为@Controllers分发请求所必须的。并提供了数据绑定支持，-->
+    <!--@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!--但是，从spring3.1开始DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter的使用已经过时-->
+    <!--spring3.1开始我们应该用RequestMappingHandlerMapping 来替换DefaultAnnotationHandlerMapping，-->
+    <!--spring3.1开始我们应该用用RequestMappingHandlerAdapter 来替换AnnotationMethodHandlerAdapter-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="mappingJackson2HttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <!--处理中文乱码以及避免IE执行AJAX时，返回JSON出现下载文件-->
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+                <value>text/json;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--3) ViewResolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--4) 单独处理图片、样式、js等资源 -->
+    <!--<mvc:resources location="/css/" mapping="/css/**"/>-->
+    <!--<mvc:resources location="/images/" mapping="/images/**"/>-->
+    <!--<mvc:resources location="/js/" mapping="/js/**"/>-->
+    <!--<mvc:resources location="/jquery-easyui/" mapping="/jquery-easyui/**"/>-->
+
+
+    <!-- ********************* 国际化配置开始***************** -->
+    <!--修改springmvc-servlet.xml-->
+    <!--1) 配置国际化资源文件 -->
+    <!--<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
+    <!--<property name="basenames">-->
+    <!--<list>-->
+    <!--<value>i18n</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;2) 指定语言区域解析器，由它来确定使用哪个语言 &ndash;&gt;-->
+    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;3) 配置国际化操作拦截器&ndash;&gt;-->
+    <!--<mvc:interceptors>-->
+    <!--<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>-->
+    <!--</mvc:interceptors>-->
+
+
+    <!-- ********************* 文件上传配置开始***************** -->
+    <!--<bean id="multipartResolver"-->
+          <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--&lt;!&ndash; 必须和用户JSP 的pageEncoding属性一致，以便正确解析表单的内容 &ndash;&gt;-->
+        <!--<property name="defaultEncoding" value="UTF-8"></property>-->
+        <!--&lt;!&ndash; 文件最大大小(字节) 1024*1024*100=50M&ndash;&gt;-->
+        <!--<property name="maxUploadSize" value="52428800"></property>-->
+        <!--&lt;!&ndash;resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常&ndash;&gt;-->
+        <!--<property name="resolveLazily" value="true"/>-->
+    <!--</bean>-->
+</beans>

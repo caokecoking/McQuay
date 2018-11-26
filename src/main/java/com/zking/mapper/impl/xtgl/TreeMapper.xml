@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.xtgl.ITreeMapper">
+    <resultMap type="Tree" id="findParentMenuTreeMap">
+        <id column="MenuId" property="id"/>
+        <result column="MenuName" property="name"/>
+        <result column="MenuParent" property="mparent"/>
+        <result column="MenuPath" property="mpath"/>
+        <collection column="MenuId" property="children"
+                    select="com.zking.mapper.xtgl.ITreeMapper.findSonMenuTreeByMCode"/>
+    </resultMap>
+    <select id="findMenuTree" resultMap="findParentMenuTreeMap">
+       select * FROM Menu WHERE MenuParent IS NULL
+    </select>
+
+    <resultMap type="Tree" id="findSonMenuTreeByMCodeMap">
+        <id column="MenuId" property="id"/>
+        <result column="MenuName" property="name"/>
+        <result column="MenuParent" property="mparent"/>
+        <result column="MenuPath" property="mpath"/>
+    </resultMap>
+    <select id="findSonMenuTreeByMCode" resultMap="findSonMenuTreeByMCodeMap" parameterType="java.lang.String">
+       SELECT * FROM menu where MenuParent=#{MenuId}
+    </select>
+</mapper>
