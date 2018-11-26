@@ -19,6 +19,10 @@
     <title>Title</title>
 </head>
 <body>
+<div class="layui-inline">
+<input name="id" class="layui-input" placeholder="分公司名称" id="CompName" type="text">
+</div>
+<button class="layui-btn" data-type="reload">搜索</button>
 <table id="demo" lay-filter="test"></table>
 <script>
     layui.use('table', function () {
@@ -28,7 +32,7 @@
         table.render({
             elem: '#demo',
             id: 'testReload'
-            , height: 400
+            , height: '600px'
             , toolbar: 'default'
             , url: '/Company/findAll.action' //数据接口
             , page: true //开启分页
@@ -47,9 +51,7 @@
         //数据重载（查询）
         var $ = layui.$, active = {
             reload: function () {
-                var productName = $('#productName');
-                var providerId = $('#providerName');
-                var isPayment = $('#isPayment');
+                var CompName = $('#CompName');
                 //执行重载
                 table.reload('testReload', {
                     url: '/Company/findAll.action',
@@ -57,22 +59,20 @@
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        productName: productName.val(),
-                        providerId: providerId.val(),
-                        isPayment: isPayment.val()
+                        CompName: CompName.val()
                     }
                 });
             }
         };
-        $('.layui-inline').on('click',function(){
+        $('.layui-table-tool-temp .layui-inline').on('click',function(){
             layer.open({
                 title: '增加',
                 type : 2,
                 content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
-                area :['600px','400px']
+                area :['600px','560px']
             });
         });
-        $('.search .layui-btn').on('click', function () {
+        $('.layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
