@@ -63,4 +63,15 @@ public class Customercontroller {
         return 0;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "FindcustomerDate")
+    public String FindcustomerDate(x_customer customer) throws Exception {
+        x_customer c = ics.FindcustomerDate(customer);
+        if (c != null) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String outstr = objectMapper.writeValueAsString(c);
+            return outstr;
+        }
+        return "";
+    }
 }

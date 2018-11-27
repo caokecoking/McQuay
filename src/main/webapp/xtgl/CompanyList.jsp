@@ -92,8 +92,6 @@
                 location.href = '/bill/findOnlyByBill.action?id='+data.id;
             }
         });
-
-
     });
 </script>
 </body>
