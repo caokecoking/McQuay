@@ -19,21 +19,21 @@
         select * from Company where Compid=#{Compid}
     </select>
     <insert id="add" parameterType="Company">
-        INSERT INTO Company VALUES (#{Compid},#{CompCoding},#{CompName},#{CompAttribute},#{Prov},#{Dist},#{Coun},#{CompAddress},#{CompEmailAddress},#{CompEmailPassword})
+        INSERT INTO Company VALUES (UUID(),#{CompCoding},#{CompName},#{CompAttribute},#{Prov},#{Dist},#{Coun},#{CompAddress},#{CompEmailAddress},#{CompEmailPassword})
     </insert>
     <update id="edit">
-        UPDATE Company SET Compid=#{Compid},CompCoding=#{CompCoding},CompName=#{CompName},CompAttribute=#{CompAttribute},
+        UPDATE Company SET CompCoding=#{CompCoding},CompName=#{CompName},CompAttribute=#{CompAttribute},
         Prov=#{Prov},Dist=#{Dist},Coun=#{Coun},CompAddress=#{CompAddress},CompEmailAddress=#{CompEmailAddress},
         CompEmailPassword=#{CompEmailPassword} where Compid=#{Compid}
     </update>
     <delete id="remove" parameterType="Company">
         DELETE FROM company WHERE Compid=#{Compid}
     </delete>
-    <select id="getEnd" parameterType="Company">
+    <select id="getEnd" resultType="java.lang.String" parameterType="Company">
         SELECT MAX(SUBSTR(compCoding, -4))+1 FROM Company WHERE Prov LIKE '%${Prov}%'
     </select>
     <select id="findByListId" parameterType="Company" resultType="Company">
-        select from Company where CompId in (#{name})
+        select * from Company where CompId in (#{name})
     </select>
     <select id="findCompanyId" resultType="Company">
         select * from Campany

@@ -11,7 +11,7 @@
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="barDemo">
     <a id="query" class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
     <html>
@@ -27,7 +27,7 @@
 <script>
     layui.use('table', function () {
         var table = layui.table;
-
+        var layEvent = table.event;
         //第一个实例
         table.render({
             elem: '#demo',
@@ -56,7 +56,6 @@
                 table.reload('testReload', {
                     url: '/Company/findAll.action',
                     page: {
-
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
@@ -67,14 +66,14 @@
         };
 
         $('.layui-table-tool-temp .layui-inline').on('click',function(){
-            layer.open({
-                title: '增加',
-                type : 2,
-                content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
-                area :['600px','560px']
-            });
+                layer.open({
+                    title: '增加界面',
+                    type : 2,
+                    content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
+                    area :['600px','560px']
+                });
         });
-        $('.layui-btn').on('click', function () {
+        $('.update').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
@@ -83,13 +82,18 @@
             var data = obj.data //获得当前行数据
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'detail') {
-                location.href = '/bill/findOnlyByBill1.action?id='+data.id;
+                location.href = '/xtgl/findOnlyCompany2.action?id='+data.Compid;
             } else if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    location.href = '/bill/delete.action?id='+data.id;
+                    location.href = '/Company/delete.action?id='+data.Compid;
                 });
             } else if (layEvent === 'edit') {
-                location.href = '/bill/findOnlyByBill.action?id='+data.id;
+                layer.open({
+                    title: '修改界面',
+                    type : 2,
+                    content: 'CompanyEdit.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
+                    area :['600px','560px']
+                });
             }
         });
     });
