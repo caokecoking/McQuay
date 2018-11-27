@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.zlgl.customerMapper">
+    <resultMap id="FindAll1" type="com.zking.pojo.zlgl.x_customer">
+        <id property="Cid" column="Cid"></id>
+        <result property="CName" column="CName"></result>
+        <result property="CustSeat" column="CustSeat"></result>
+        <result property="CustPhone" column="CustPhone"></result>
+        <result property="CustPartphone" column="CustPartphone"></result>
+        <result property="CustEmail" column="CustEmail"></result>
+        <result property="EDI_DateTime" column="EDI_DateTime"></result>
+        <result property="CustId" column="CustId"></result>
+        <association property="x_customermessage" javaType="x_customermessage">
+            <id property="CustId" column="CustId"></id>
+            <result property="CustName" column="CustName"></result>
+        </association>
+    </resultMap>
+
+    <select id="FindAll" resultMap="FindAll1" parameterType="com.zking.pojo.zlgl.x_customer">
+        SELECT c.Cid,c.CName,c.CustSeat,c.CustPhone,c.CustPartphone,c.CustEmail,c.EDI_DateTime,m.CustName FROM
+        x_customer c
+        INNER JOIN x_customermessage m
+        ON c.CustId=m.CustId
+        <where>
+            <if test="CName!=null">
+                AND CName LIKE '%${CName}%'
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="FindCount" resultType="java.lang.Integer" parameterType="com.zking.pojo.zlgl.x_customer">
+        SELECT count(c.Cid) FROM
+        x_customer c
+        INNER JOIN x_customermessage m
+        ON c.CustId=m.CustId
+        <where>
+            <if test="CName!=null">
+                AND CName LIKE '%${CName}%'
+            </if>
+        </where>
+    </select>
+
+    <insert id="Findx_customerAdd" parameterType="com.zking.pojo.zlgl.x_customer">
+        INSERT INTO x_customer(Cid,CName,CustSeat,CustPhone,CustPartphone,CustEmail,CustId) VALUE (UUID(),#{CName},#{CustSeat},#{CustPhone},#{CustPartphone},#{CustEmail},#{CustId})
+    </insert>
+
+    <delete id="Findremove" parameterType="com.zking.pojo.zlgl.x_customer">
+        DELETE FROM x_customer WHERE Cid=#{Cid}
+    </delete>
+
+    <select id="FindcustomerDate" resultType="com.zking.pojo.zlgl.x_customer"
+            parameterType="com.zking.pojo.zlgl.x_customer">
+         SELECT * FROM  x_customer WHERE Cid=#{Cid}
+    </select>
+
+    <update id="Findx_customerEdit" parameterType="com.zking.pojo.zlgl.x_customer">
+UPDATE x_customer SET CName=#{CName},CustSeat=#{CustSeat},CustPhone=#{CustPhone},CustPartphone=#{CustPartphone},CustEmail=#{CustEmail},EDI_DateTime=#{EDI_DateTime},CustId=#{CustId} Where Cid=#{Cid}
+    </update>
+
+</mapper>
