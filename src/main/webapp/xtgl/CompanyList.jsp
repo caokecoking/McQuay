@@ -82,10 +82,36 @@
             var data = obj.data //获得当前行数据
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'detail') {
-                location.href = '/xtgl/findOnlyCompany2.action?id='+data.Compid;
+                layer.open({
+                    title: 'ck界面',
+                    type : 2,
+                    content: 'CompanyLook.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
+                    area :['600px','560px']
+                });
             } else if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    location.href = '/Company/delete.action?id='+data.Compid;
+                    if(index>0){
+                        $.ajax({
+                            type: "POST",
+                            url: "/Company/removeCompany.action",
+                            data: {
+                                Compid: data.Compid
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                table.reload('testReload', {
+                                    url: '/Company/findAll.action',
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                    , where: {
+                                        CompName: $('#CompName').val()
+                                    }
+                                });
+                                parent.layer.close(index);
+                            }
+                        });
+                    }
                 });
             } else if (layEvent === 'edit') {
                 layer.open({
