@@ -91,10 +91,10 @@
                     location.href = '../FindCustomerremove.action?Cid=' + data.cid;
                 });
             } else if (layEvent === 'edit') {
-                alert(data.cid);
                 layer.open({
+                    title: "联系人修改",
                     type: 2,
-                    content: 'http://localhost:8080/zlgl/CustomerEdit.jsp?Cid=' + data.cid //这里content是一个普通的String
+                    content: 'http://localhost:8080/zlgl/CustomerEdit.jsp?ids=' + data.cid //这里content是一个普通的String
                     , offset: 'auto',
                     area: ['700px', '600px']
                 });
@@ -109,6 +109,7 @@
             switch (obj.event) {
                 case 'add':
                     layer.open({
+                        title: "联系人增加",
                         type: 2,
                         content: 'http://localhost:8080/zlgl/CustomerAdd.jsp' //这里content是一个普通的String
                         , offset: 'auto',

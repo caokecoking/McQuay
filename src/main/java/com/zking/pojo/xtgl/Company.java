@@ -172,4 +172,21 @@ public class Company  extends BasePojo {
 		Sn = sn;
 	}
 
+
+	public Company(String compid, String compCoding, String compName, String compAttribute, String prov, String dist, String coun, String compAddress, String compEmailAddress, String compEmailPassword, Set<AgreementShop> sa, Set<Personnel> sp, Set<Department> sd, Set<Notice> sn) {
+		Compid = compid;
+		CompCoding = compCoding;
+		CompName = compName;
+		CompAttribute = compAttribute;
+		Prov = prov;
+		Dist = dist;
+		Coun = coun;
+		CompAddress = compAddress;
+		CompEmailAddress = compEmailAddress;
+		CompEmailPassword = compEmailPassword;
+		this.sa = sa;
+		Sp = sp;
+		Sd = sd;
+		Sn = sn;
+	}
 }

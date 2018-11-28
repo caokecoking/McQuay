@@ -1,6 +1,7 @@
 package com.zking.pojo.zlgl;
 
 import com.zking.pojo.BasePojo;
+import com.zking.pojo.xtgl.Company;
 
 public class x_customermessage extends BasePojo {
     private String CustId;
@@ -13,8 +14,15 @@ public class x_customermessage extends BasePojo {
     private String CustType;
     private String Compid;
     private String EDI_DateTime;
+    private Company Company;
 
+    public com.zking.pojo.xtgl.Company getCompany() {
+        return Company;
+    }
 
+    public void setCompany(com.zking.pojo.xtgl.Company company) {
+        Company = company;
+    }
 
     public String getCustId() {
         return CustId;

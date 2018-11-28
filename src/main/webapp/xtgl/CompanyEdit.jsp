@@ -17,6 +17,7 @@
     <script src="../js/distpicker.js"></script>
 </head>
 <body>
+<br/>
 <form class="layui-form">
     <input type="hidden" id="id" value="<%=request.getParameter("id")%>"/>
     <br/>
@@ -86,7 +87,7 @@
 </form>
 
 <script>
-    $(function(){
+    $(function () {
         $.ajax({
             type: "POST",
             url: "/Company/findOnlyCompany1.action",

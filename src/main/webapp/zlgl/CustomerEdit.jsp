@@ -32,13 +32,13 @@
                 Cid: $('#ids').val()
             },
             success: function (data) {
-                $('#CName').val(data.cName);
-                $('#CustSeat').val(data.custSeat);
-                $('#CustPhone').val(data.custPhone);
-                $('#CustPartphone').val(data.custPartphone);
-                $('#CustEmail').val(data.custEmail);
-                $('#city').val(data.custId);
-                $('#Cid').val(data.cid);
+                $('#CName').val(data.c.cname);
+                $('#CustSeat').val(data.c.custSeat);
+                $('#CustPhone').val(data.c.custPhone);
+                $('#CustPartphone').val(data.c.custPartphone);
+                $('#CustEmail').val(data.c.custEmail);
+                $('#city').val(data.c.custId);
+                $('#Cid').val(data.c.cid);
             }
         })
     })
@@ -71,7 +71,7 @@
 </script>
 <body>
 <div class="layui-form">
-    <input type="hidden" id="ids" value="${request.getParameterNames("Cid")}">
+    <input type="hidden" id="ids" value="<%=request.getParameter("ids")%>">
     <input type="hidden" id="Cid">
     <div>
         <label style="font-size: 20px">客户联系人的增加</label>

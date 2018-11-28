@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,7 @@ public class Customercontroller {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "Findx_customerAdd")
     public int Findx_customerAdd(x_customer customer) {
         int index = ics.Findx_customerAdd(customer);
@@ -67,22 +70,21 @@ public class Customercontroller {
 
     @RequestMapping(value = "FindcustomerDate")
     @ResponseBody
-    public String FindcustomerDate(x_customer customer) throws Exception {
+    public Map FindcustomerDate(x_customer customer) throws Exception {
         x_customer c = ics.FindcustomerDate(customer);
-        if (c != null) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String outstr = objectMapper.writeValueAsString(c);
-            return outstr;
-        }
-        return "404";
+        Map map = new HashMap();
+        map.put("c", c);
+        return map;
     }
 
-
+    @ResponseBody
     @RequestMapping(value = "Findx_customerEdit")
     public int Findx_customerEdit(x_customer customer) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        customer.setEDI_DateTime(df.format(new Date()));
         int index = ics.Findx_customerEdit(customer);
         if (index > 0) {
-            return 1;
+            return index;
         }
         return 0;
     }

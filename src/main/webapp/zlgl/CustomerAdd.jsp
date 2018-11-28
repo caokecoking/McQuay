@@ -16,6 +16,7 @@
             url: '../FindCustomermessageMapperDateBind.action',
             dataType: 'json',
             success: function (data) {
+
                 $.each(data.outstr, function (index, item) {
                     $('#city').append(new Option(item.custName, item.custId));// 下拉菜单里添加元素
                 });
@@ -23,7 +24,6 @@
             }
         })
     })
-
 
     function CustomerAdd() {
         $.ajax({
@@ -108,7 +108,7 @@
     <div class="layui-form-item">
 
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="formDemo" onclick="CustomerAdd();">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -117,30 +117,6 @@
     //Demo
     layui.use('form', function () {
         var form = layui.form;
-        form.on('submit(formDemo)', function (data1) {
-            $.ajax({
-                type: "POST",
-                url: "../Findx_customerAdd.action",
-                dataType: "text",
-                data: {
-                    CName: $('#CName').val(),
-                    CustSeat: $('#CustSeat').val(),
-                    CustPhone: $('#CustPhone').val(),
-                    CustPartphone: $('#CustPartphone').val(),
-                    CustEmail: $('#CustEmail').val(),
-                    CustId: $('#city').val()
-                },
-                success: function (data) {
-                    if (data > 0) {
-                        var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                        parent.location.reload();
-                    } else {
-                        alert("增加失败");
-                    }
-                }
-            });
-        });
     });
 </script>
 </body>

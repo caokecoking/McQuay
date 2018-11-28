@@ -10,10 +10,10 @@
     <script src="../js/distpicker.js"></script>
 </head>
 <body>
+<br/>
 <div class="layui-form">
     <br/>
     <div class="layui-form-item">
-        <label class="layui-form-label">分公司名称</label>
         <div class="layui-input-block">
             <input type="text" placeholder="请输入分公司名称" id="CompName" autocomplete="off" class="layui-input">
         </div>
