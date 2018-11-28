@@ -73,7 +73,7 @@
                     area :['600px','560px']
                 });
         });
-        $('.update').on('click', function () {
+        $('.layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
