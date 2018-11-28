@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class Customermessagecontroller {
@@ -19,13 +21,15 @@ public class Customermessagecontroller {
     @Resource(name = "ICustomermessageServiceImpl")
     private ICustomermessageService ics;
 
-
     @ResponseBody
-    @RequestMapping(value = "FindCustomermessageMapperDateBind", method = RequestMethod.POST)
-    public String FindCustomermessageMapperDateBind() throws JsonProcessingException {
+    @RequestMapping(value = "FindCustomermessageMapperDateBind")
+    public Map FindCustomermessageMapperDateBind() throws JsonProcessingException {
         List<x_customermessage> lcm = ics.FindDateBind();
-        ObjectMapper objectMapper = new ObjectMapper();
+        /*ObjectMapper objectMapper = new ObjectMapper();
         String outstr = objectMapper.writeValueAsString(lcm);
-        return outstr;
+        System.out.println(outstr);*/
+        Map map = new HashMap();
+        map.put("outstr", lcm);
+        return map;
     }
 }

@@ -11,16 +11,16 @@
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="barDemo">
     <a id="query" class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-    <html>
+<html>
 <head>
     <title>Title</title>
 </head>
 <body>
 <div class="layui-inline">
-<input name="id" class="layui-input" placeholder="分公司名称" id="CompName" type="text">
+    <input name="id" class="layui-input" placeholder="分公司名称" id="CompName" type="text">
 </div>
 <button class="layui-btn" data-type="reload">搜索</button>
 <table id="demo" lay-filter="test"></table>
@@ -41,7 +41,7 @@
                 , {field: 'CompName', title: '分公司名称', width: '15%'}
                 , {field: 'CompAddress', title: '详细地址', width: '15%', sort: true}
                 , {field: 'CompAttribute', title: '属性', width: '10%'}
-                , {field: 'CompEmailAddress', title: '邮箱地址', width: '10%',templet:'#isPayment1'}
+                , {field: 'CompEmailAddress', title: '邮箱地址', width: '10%', templet: '#isPayment1'}
                 , {field: 'CompEmailPassword', title: '邮箱密码', width: '15%', sort: true}
                 , {fixed: 'right', title: '操作', width: '20%', align: 'center', toolbar: '#barDemo'}
             ]], limits: [5, 10, 15, 20],
@@ -65,13 +65,13 @@
             }
         };
 
-        $('.layui-table-tool-temp .layui-inline').on('click',function(){
-                layer.open({
-                    title: '增加界面',
-                    type : 2,
-                    content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','560px']
-                });
+        $('.layui-table-tool-temp .layui-inline').on('click', function () {
+            layer.open({
+                title: '增加界面',
+                type: 2,
+                content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
+                area: ['600px', '560px']
+            });
         });
         $('.update').on('click', function () {
             var type = $(this).data('type');
@@ -82,17 +82,17 @@
             var data = obj.data //获得当前行数据
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'detail') {
-                location.href = '/xtgl/findOnlyCompany2.action?id='+data.Compid;
+                location.href = '/xtgl/findOnlyCompany2.action?id=' + data.Compid;
             } else if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    location.href = '/Company/delete.action?id='+data.Compid;
+                    location.href = '/Company/delete.action?id=' + data.Compid;
                 });
             } else if (layEvent === 'edit') {
                 layer.open({
                     title: '修改界面',
-                    type : 2,
-                    content: 'CompanyEdit.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','560px']
+                    type: 2,
+                    content: 'CompanyEdit.jsp?id=' + data.Compid, //数组第二项即吸附元素选择器或者DOM
+                    area: ['600px', '560px']
                 });
             }
         });

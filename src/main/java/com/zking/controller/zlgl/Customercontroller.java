@@ -3,11 +3,15 @@ package com.zking.controller.zlgl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zking.pojo.zlgl.x_customer;
 import com.zking.service.zlgl.ICustomerService;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +47,6 @@ public class Customercontroller {
     }
 
     @RequestMapping(value = "FindCustomerremove")
-    @ResponseBody
     public String Findremove(x_customer customer) {
         int index = ics.Findremove(customer);
         if (index > 0) {
@@ -54,7 +57,6 @@ public class Customercontroller {
 
 
     @RequestMapping(value = "Findx_customerAdd")
-    @ResponseBody
     public int Findx_customerAdd(x_customer customer) {
         int index = ics.Findx_customerAdd(customer);
         if (index > 0) {
@@ -63,8 +65,8 @@ public class Customercontroller {
         return 0;
     }
 
-    @ResponseBody
     @RequestMapping(value = "FindcustomerDate")
+    @ResponseBody
     public String FindcustomerDate(x_customer customer) throws Exception {
         x_customer c = ics.FindcustomerDate(customer);
         if (c != null) {
@@ -72,6 +74,16 @@ public class Customercontroller {
             String outstr = objectMapper.writeValueAsString(c);
             return outstr;
         }
-        return "";
+        return "404";
+    }
+
+
+    @RequestMapping(value = "Findx_customerEdit")
+    public int Findx_customerEdit(x_customer customer) {
+        int index = ics.Findx_customerEdit(customer);
+        if (index > 0) {
+            return 1;
+        }
+        return 0;
     }
 }
