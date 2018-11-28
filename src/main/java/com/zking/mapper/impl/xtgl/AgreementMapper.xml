@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.xtgl.IAgreementMapper">
+    <resultMap id="AgreementAndCompany" type="AgreementShop">
+        <id property="AgreCoding" column="AgreCoding"/>
+        <result property="AgreName" column="AgreName"></result>
+        <result property="Prov" column="Prov"></result>
+        <result property="Dist" column="Dist"></result>
+        <result property="Coun" column="Coun"></result>
+        <result property="AgreAddress" column="AgreAddress"></result>
+        <result property="ChargeName" column="ChargeName"></result>
+        <result property="ChargePhone" column="ChargePhone"></result>
+        <result property="ChargeEmail" column="ChargeEmail"></result>
+        <result property="TeleFax" column="TeleFax"></result>
+        <result property="DepositBank" column="DepositBank"></result>
+        <result property="BankAccount" column="BankAccount"></result>
+        <result property="CorpName" column="CorpName"></result>
+        <result property="CorpPhone" column="CorpPhone"></result>
+        <result property="CorpEmail" column="CorpEmail"></result>
+        <result property="AgreStartTime" column="AgreStartTime"></result>
+        <result property="AgreFinishTime" column="AgreFinishTime"></result>
+        <association property="c" javaType="Company">
+            <id property="Compid" column="Compid"></id>
+            <result property="CompCoding" column="CompCoding"></result>
+            <result property="CompName" column="CompName"></result>
+            <result property="CompAttribute" column="CompAttribute"></result>
+            <result property="Prov" column="Prov"></result>
+            <result property="Dist" column="Dist"></result>
+            <result property="Coun" column="Coun"></result>
+            <result property="CompAddress" column="Prov"></result>
+            <result property="CompEmailAddress" column="Dist"></result>
+            <result property="CompEmailPassword" column="Coun"></result>
+        </association>
+    </resultMap>
+    <select id="findAll" resultMap="AgreementAndCompany" parameterType="AgreementShop">
+        SELECT * FROM Agreement a,Company c
+        <where>
+            and a.Compid=`c`.Compid
+            <if test="name!=null">
+                and a.Compid in( select Compid from Company where CompName like '%${name}%')
+            </if>
+            <if test="Prov!=null">
+                and a.Prov like '%${Prov}%'
+            </if>
+            <if test="AgreName!=null">
+                and a.AgreName like '%${AgreName}%'
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+    <select id="getMax" resultType="java.lang.Integer" parameterType="AgreementShop">
+        select count(a.AgreName) from Agreement a,Company c
+        <where>
+            and a.Compid=`c`.Compid
+            <if test="AgreName!=null">
+                and a.AgreName like '%${AgreName}%'
+            </if>
+            <if test="name!=null">
+                and a.Compid in( select Compid from Company where CompName like '%${name}%')
+            </if>
+            <if test="Prov!=null">
+                and a.Prov like '%${Prov}%'
+            </if>
+        </where>
+    </select>
+    <select id="findonly" parameterType="AgreementShop" resultType="AgreementShop">
+        select * from agreement where AgreCoding=#{AgreCoding}
+    </select>
+    <insert id="add" parameterType="AgreementShop">
+        INSERT INTO agreement VALUES (#{AgreCoding},#{AgreName},#{Compid},#{Prov},#{Dist},#{Coun},#{AgreAddress},#{ChargeName},#{ChargePhone},#{ChargeEmail},#{TeleFax},#{DepositBank},#{BankAccount},#{CorpName},#{CorpPhone},#{CorpEmail},#{AgreStartTime},#{AgreFinishTime}
+    </insert>
+    <update id="edit" parameterType="AgreementShop">
+
+    </update>
+    <delete id="remove" parameterType="AgreementShop">
+
+    </delete>
+    <select id="getEnd" resultType="java.lang.String" parameterType="AgreementShop">
+        SELECT MAX(SUBSTR(AgreCoding, -4))+1 FROM Agreement WHERE Compid=#{Compid}
+    </select>
+    <select id="findByListId" resultType="AgreementShop" parameterType="AgreementShop">
+        select * from Agreement where AgreCoding in (#{name})
+    </select>
+</mapper>
