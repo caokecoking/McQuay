@@ -115,4 +115,11 @@ public class CompanyControlller {
         map.put("company",company1);
         return map;
     }
+
+    @ResponseBody
+    @RequestMapping("removeCompany")
+    public int removeCompany(Company company){
+        int index=ics.remove(company);
+        return index;
+    }
 }

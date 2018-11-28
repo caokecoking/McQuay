@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="McQuay:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="McQuay.war">
+    <root id="archive" name="Smbms.war">
       <element id="artifact" artifact-name="McQuay:war exploded" />
     </root>
   </artifact>
