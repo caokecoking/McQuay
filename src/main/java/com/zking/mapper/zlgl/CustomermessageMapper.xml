@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.zlgl.CustomermessageMapper">
+    <select id="FindDateBind" resultType="com.zking.pojo.zlgl.x_customermessage"
+            parameterType="com.zking.pojo.zlgl.x_customermessage">
+            SELECT * FROM  x_customermessage
+    </select>
+
+    <!--<resultMap id="FindCustomermessageAll" type="com.zking.pojo.zlgl.x_customermessage">-->
+    <!--<id column="CustId" property="CustId"></id>-->
+    <!--<result property="CustName" column="CustName"></result>-->
+    <!--<result property="CustProject" column="CustProject"></result>-->
+    <!--<result property="Prov" column="Prov"></result>-->
+    <!--<result property="Dist" column="Dist"></result>-->
+    <!--<result property="Coun" column="Coun"></result>-->
+    <!--<result property="CustAddress" column="CustAddress"></result>-->
+    <!--<result property="CustType" column="CustType"></result>-->
+    <!--<result property="Compid" column="Compid"></result>-->
+    <!--<result property="EDI_DateTime" column="EDI_DateTime"></result>-->
+
+
+    <!--</resultMap>-->
+
+    <!--<select id="FindCustomermessageAll" resultMap="" parameterType="">-->
+
+    <!--</select>-->
+
+    <!--<insert id="FindCustomermessageadd" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
+
+    <!--</insert>-->
+
+    <!--<update id="FindCustomermessageEdit" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
+
+    <!--</update>-->
+
+    <!--<select id="FindCustomermessagereomve" resultType="com.zking.pojo.zlgl.x_customermessage"-->
+    <!--parameterType="com.zking.pojo.zlgl.x_customermessage">-->
+
+    <!--</select>-->
+
+    <!--<delete id="FindCustomermessagereomve" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
+
+    <!--</delete>-->
+
+    <!--<select id="FindDateBind" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
+
+    <!--</select>-->
+</mapper>

@@ -44,9 +44,9 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
 
-        <div class="layui-tab"  lay-filter="demo" lay-allowclose="true">
+        <div class="layui-tab" lay-filter="demo" lay-allowclose="true">
             <ul class="layui-tab-title">
-                <li lay-id="ss" class="layui-this" >首页</li>
+                <li lay-id="ss" class="layui-this">首页</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show"></div>
@@ -68,23 +68,25 @@
             url: "/tree/findMenuTree.action",
             datatype: "json",
             success: function (data) {
-                layui.use(['tree','element'], function(){
-                    var element=layui.element;
+                layui.use(['tree', 'element'], function () {
+                    var element = layui.element;
                     layui.tree({
                         elem: '#tree' //传入元素选择器
-                        ,skin:'sidebar'
-                        ,nodes:data
-                        ,click:function(node){
-                            if(node.mpath!=null){
-                                var exist=$("li[lay-id='"+node.id+"']").length;
-                                if(exist==1){   //tab已经打开
+                        , skin: 'sidebar'
+                        , nodes: data
+                        , click: function (node) {
+                            if (node.mpath != null) {
+                                var exist = $("li[lay-id='" + node.id + "']").length;
+                                if (exist == 1) {   //tab已经打开
                                     element.tabChange('demo', node.id); //切换到：用户管理
-                                }else{    //tab没有打开
+                                } else {    //tab没有打开
                                     //新增一个Tab项
                                     element.tabAdd('demo', {
                                         title: node.name //用于演示
-                                        ,content:'<iframe frameborder="0" src="'+node.mpath+'" style="width: 100%;height:100%;"></iframe>'
-                                        ,id:node.id//实际使用一般是规定好的id，这里以时间戳模拟下
+                                        ,
+                                        content: '<iframe frameborder="0" src="' + node.mpath + '" style="width: 100%;height:100%;"></iframe>'
+                                        ,
+                                        id: node.id//实际使用一般是规定好的id，这里以时间戳模拟下
                                     })
                                     //展开tab下的内容
                                     element.tabChange('demo', node.id); //切换到：用户管理
@@ -97,8 +99,8 @@
         });
     </script>
     <%--按钮--%>
-    <script type="text/html" id="barDemo" >
-        <a   class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
         <a class="layui-btn layui-btn-xs" lay-event="update">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
     </script>

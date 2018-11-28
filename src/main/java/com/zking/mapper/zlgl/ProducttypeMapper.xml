@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.zlgl.ProducttypeMapper">
+    <select id="FindProducttypeAll" resultType="com.zking.pojo.zlgl.x_producttype"
+            parameterType="com.zking.pojo.zlgl.x_producttype">
+        SELECT PtId,PtDescribe FROM x_producttype
+        <where>zlgl
+            <if test="PtDescribe!=null">
+                AND PtDescribe LIKE '${PtDescribe}'
+            </if>
+            limit #{page},#{limit}
+        </where>
+    </select>
+
+
+    <select id="FindProducttypeCount" resultType="com.zking.pojo.zlgl.x_producttype"
+            parameterType="com.zking.pojo.zlgl.x_producttype">
+        SELECT count(PtId) FROM x_producttype
+        <where>
+            <if test="PtDescribe!=null">
+                AND PtDescribe LIKE '${PtDescribe}'
+            </if>
+        </where>
+    </select>
+
+    <insert id="FindProducttypeAdd" parameterType="com.zking.pojo.zlgl.x_producttype">
+        INNER  INTO x_producttype(PtId,PtDescribe) VALUE (uuid(),#{PtDescribe})
+    </insert>
+
+    <delete id="FindProducttypeRemove" parameterType="com.zking.pojo.zlgl.x_producttype">
+DELETE FROM x_producttype WHERE  PtId=#{PtId}
+    </delete>
+
+    <select id="FindDateBind" parameterType="com.zking.pojo.zlgl.x_producttype">
+        SELECT  * FROM x_producttype WHERE PtId=#{PtId}
+    </select>
+
+    <update id="FindProducttypeEdit" parameterType="com.zking.pojo.zlgl.x_producttype">
+UPDATE  x_producttype SET PtDescribe=#{PtDescribe}  WHERE PtId=#{PtId}
+    </update>
+
+</mapper>
