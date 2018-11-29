@@ -67,7 +67,7 @@
 
         $('.layui-table-tool-temp .layui-inline').on('click',function(){
                 layer.open({
-                    title: '增加界面',
+                    title: '增加分公司',
                     type : 2,
                     content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
                     area :['600px','560px']
@@ -83,7 +83,7 @@
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'detail') {
                 layer.open({
-                    title: 'ck界面',
+                    title: '查看分公司',
                     type : 2,
                     content: 'CompanyLook.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
                     area :['600px','560px']
@@ -115,7 +115,7 @@
                 });
             } else if (layEvent === 'edit') {
                 layer.open({
-                    title: '修改界面',
+                    title: '修改分公司',
                     type : 2,
                     content: 'CompanyEdit.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
                     area :['600px','560px']

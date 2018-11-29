@@ -17,7 +17,6 @@
     <script src="../js/distpicker.js"></script>
 </head>
 <body>
-<form class="layui-form">
     <input type="hidden" id="id" value="<%=request.getParameter("id")%>"/>
     <br/>
     <div class="layui-form-item">
@@ -26,29 +25,15 @@
             <input type="text" placeholder="请输入分公司名称" id="CompName" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div data-toggle="distpicker">
-        <div class="layui-form-item">
-            <label class="layui-form-label">省/直辖市</label>
-            <div class="layui-input-block">
-                <select id="province" name="province">
-                </select>
+        <label class="layui-form-label">省 / 市 / 县</label>
+        <div class="layui-input-block">
+            <div data-toggle="distpicker" id="distpicker">
+                <select id="Prov" name="province" style="height:30px"></select>
+                <select id="Dist" name="city" style="height:30px"></select>
+                <select id="Coun" name="district" style="height:30px"></select>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">地区/市</label>
-            <div class="layui-input-block">
-                <select id="city" name="city">
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">市/县</label>
-            <div class="layui-input-block">
-                <select id="district" name="district">
-                </select>
-            </div>
-        </div>
-    </div>
+    <form class="layui-form">
     <div class="layui-form-item">
         <label class="layui-form-label">详情地址</label>
         <div class="layui-input-block">
@@ -98,10 +83,11 @@
                 $('#id').val(data.company.compid);
                 $('#CompName').val(data.company.compName);
                 $('#CompAddress').val(data.company.compAddress);
-                $('#target').distpicker({
-                    province: data.company.prov,
-                    city: data.company.dist,
-                    district: data.company.coun
+                $("#distpicker").distpicker('destroy');
+                $('#distpicker').distpicker({
+                    province  : data.company.Prov,
+                    city  : data.company.Dist,
+                    district  : data.company.Coun
                 });
                 $('#CompAttribute').val(data.company.compAttribute);
                 $('#CompEmailAddress').val(data.company.compEmailAddress);

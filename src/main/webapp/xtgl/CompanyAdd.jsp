@@ -17,40 +17,23 @@
     <script src="../js/distpicker.js"></script>
 </head>
 <body>
+<div class="layui-form-item">
+    <label class="layui-form-label">分公司名称</label>
+    <div class="layui-input-block">
+        <input type="text" placeholder="请输入分公司名称" id="CompName" autocomplete="off" class="layui-input">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">省 / 市 / 县</label>
+    <div class="layui-input-block">
+        <div data-toggle="distpicker">
+            <select id="Prov" style="height:30px"></select>
+            <select id="Dist" style="height:30px"></select>
+            <select id="Coun" style="height:30px"></select>
+        </div>
+    </div>
+</div>
 <div class="layui-form">
-    <br/>
-    <div class="layui-form-item">
-        <label class="layui-form-label">分公司名称</label>
-        <div class="layui-input-block">
-            <input type="text" placeholder="请输入分公司名称" id="CompName" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div id="distpicker1" data-toggle="distpicker">
-        <div class="layui-form-item">
-            <label class="layui-form-label">省/直辖市</label>
-            <div class="layui-input-block">
-                <select id="province" name="province">
-                    <option value="">--请选择--</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">地区/市</label>
-            <div class="layui-input-block">
-                <select id="city" name="city">
-                    <option value="">--请选择--</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">市/县</label>
-            <div class="layui-input-block">
-                <select id="district" name="district">
-                    <option value="">--请选择--</option>
-                </select>
-            </div>
-        </div>
-    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">详情地址</label>
         <div class="layui-input-block">
@@ -90,7 +73,6 @@
 <script>
     //Demo
     layui.use('form', function () {
-        $("#distpicker1").distpicker();
         var form = layui.form;
         //监听提交
         form.on('submit(formDemo)', function (data1) {
@@ -100,9 +82,9 @@
                 data: {
                     CompName: $('#CompName').val(),
                     CompAddress: $('#CompAddress').val(),
-                    Prov: $('#province').val(),
-                    Dist: $('#city').val(),
-                    Coun: $('#district').val(),
+                    Prov: $('#Prov').val(),
+                    Dist: $('#Dist').val(),
+                    Coun: $('#Coun').val(),
                     CompAttribute: $('#CompAttribute').val(),
                     CompEmailAddress: $('#CompEmailAddress').val(),
                     CompEmailPassword: $('#CompEmailPassword').val()

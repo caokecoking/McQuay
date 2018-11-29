@@ -84,10 +84,10 @@
 
         $('.layui-table-tool-temp .layui-inline').on('click',function(){
             layer.open({
-                title: '增加界面',
+                title: '增加协议店',
                 type : 2,
                 content: 'AgreementAdd.jsp', //数组第二项即吸附元素选择器或者DOM
-                area :['600px','560px']
+                area :['600px','700px']
             });
         });
         $('.layui-btn').on('click', function () {
@@ -100,9 +100,9 @@
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'detail') {
                 layer.open({
-                    title: 'ck界面',
+                    title: '查看协议店',
                     type : 2,
-                    content: 'AgreementLook.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
+                    content: 'AgreementLook.jsp?AgreCoding='+data.AgreCoding, //数组第二项即吸附元素选择器或者DOM
                     area :['600px','560px']
                 });
             } else if (layEvent === 'del') {
@@ -112,7 +112,7 @@
                             type: "POST",
                             url: "/Agreement/removeAgreement.action",
                             data: {
-                                Compid: data.Compid
+                                AgreCoding: data.AgreCoding
                             },
                             dataType: "json",
                             success: function (data) {
@@ -134,9 +134,9 @@
                 });
             } else if (layEvent === 'edit') {
                 layer.open({
-                    title: '修改界面',
+                    title: '修改协议店',
                     type : 2,
-                    content: 'AgreementEdit.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
+                    content: 'AgreementEdit.jsp?AgreCoding='+data.AgreCoding, //数组第二项即吸附元素选择器或者DOM
                     area :['600px','560px']
                 });
             }

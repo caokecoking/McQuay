@@ -66,21 +66,21 @@
         </where>
     </select>
     <select id="findonly" parameterType="AgreementShop" resultType="AgreementShop">
-        select * from agreement where AgreCoding=#{AgreCoding}
+        select *,Compid as name from agreement where AgreCoding=#{AgreCoding}
     </select>
     <insert id="add" parameterType="AgreementShop">
-        INSERT INTO agreement VALUES (#{AgreCoding},#{AgreName},#{Compid},#{Prov},#{Dist},#{Coun},#{AgreAddress},#{ChargeName},#{ChargePhone},#{ChargeEmail},#{TeleFax},#{DepositBank},#{BankAccount},#{CorpName},#{CorpPhone},#{CorpEmail},#{AgreStartTime},#{AgreFinishTime}
+        INSERT INTO agreement VALUES (#{AgreCoding},#{AgreName},#{name},#{Prov},#{Dist},#{Coun},#{AgreAddress},#{ChargeName},#{ChargePhone},#{ChargeEmail},#{TeleFax},#{DepositBank},#{BankAccount},#{CorpName},#{CorpPhone},#{CorpEmail},now(),#{AgreFinishTime})
     </insert>
-    <update id="edit" parameterType="AgreementShop">
-
-    </update>
-    <delete id="remove" parameterType="AgreementShop">
-
-    </delete>
     <select id="getEnd" resultType="java.lang.String" parameterType="AgreementShop">
-        SELECT MAX(SUBSTR(AgreCoding, -4))+1 FROM Agreement WHERE Compid=#{Compid}
+        SELECT MAX(SUBSTR(AgreCoding, -4))+1 FROM Agreement WHERE Compid=#{name}
     </select>
     <select id="findByListId" resultType="AgreementShop" parameterType="AgreementShop">
         select * from Agreement where AgreCoding in (#{name})
     </select>
+    <update id="edit" parameterType="AgreementShop">
+        UPDATE agreement SET AgreName=#{AgreName},Compid=#{name},Prov=#{Prov},Dist=#{Dist},Coun=#{Coun},AgreAddress=#{AgreAddress},ChargeName=#{ChargeName},ChargePhone=#{ChargePhone},ChargeEmail=#{ChargeEmail},TeleFax=#{TeleFax},DepositBank=#{DepositBank},BankAccount=#{BankAccount},CorpName=#{CorpName},CorpPhone=#{CorpPhone},CorpEmail=#{CorpEmail},AgreFinishTime=#{AgreFinishTime} WHERE AgreCoding=#{AgreCoding};
+    </update>
+    <delete id="remove" parameterType="AgreementShop">
+        DELETE FROM agreement WHERE AgreCoding=#{AgreCoding}
+    </delete>
 </mapper>
