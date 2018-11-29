@@ -5,6 +5,10 @@
 </head>
 <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 <script src="../layui/layui.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery-3.2.1.js"></script>
+<script src="../js/distpicker.data.js"></script>
+<script src="../js/distpicker.js"></script>
 <body>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -87,18 +91,25 @@
                     location.href = '../FindCustomerremove.action?Cid=' + data.cid;
                 });
             } else if (layEvent === 'edit') {
-                location.href = '../findOnlyByBill.action?cid=' + data.cid;
+                layer.open({
+                    title: "联系人修改",
+                    type: 2,
+                    content: 'http://localhost:8080/zlgl/CustomerEdit.jsp?ids=' + data.cid //这里content是一个普通的String
+                    , offset: 'auto',
+                    area: ['700px', '600px']
+                });
             }
         });
 
 
-        //监听头工具栏事件
+        //监听头工具栏事件l
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id)
                 , data = checkStatus.data; //获取选中的数据
             switch (obj.event) {
                 case 'add':
                     layer.open({
+                        title: "联系人增加",
                         type: 2,
                         content: 'http://localhost:8080/zlgl/CustomerAdd.jsp' //这里content是一个普通的String
                         , offset: 'auto',
@@ -111,7 +122,7 @@
                     } else if (data.length > 1) {
                         layer.msg('只能同时编辑一个');
                     } else {
-                        layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+                        checkStatus.data[0].cid;
                     }
                     break;
                 case 'delete':

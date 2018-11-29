@@ -5,11 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository()
+@Repository("ICustomermessageMapper")
 public interface CustomermessageMapper {
+
     public List<x_customermessage> FindDateBind();
 
-//    public List<x_customermessage> FindCustomermessageAll(x_customermessage customermessage);
+    public List<x_customermessage> FindCustomermessageAll(x_customermessage customermessage);
 
     public int FindCustomermessageCount(x_customermessage customermessage);
 
@@ -19,5 +20,5 @@ public interface CustomermessageMapper {
 
     public int FindCustomermessagereomve(x_customermessage customermessage);
 
-    public x_customermessage FindDateBind(x_customermessage customermessage);
+    public x_customermessage FindCustomermessageDateBind(x_customermessage customermessage);
 }

@@ -8,43 +8,67 @@
             SELECT * FROM  x_customermessage
     </select>
 
-    <!--<resultMap id="FindCustomermessageAll" type="com.zking.pojo.zlgl.x_customermessage">-->
-    <!--<id column="CustId" property="CustId"></id>-->
-    <!--<result property="CustName" column="CustName"></result>-->
-    <!--<result property="CustProject" column="CustProject"></result>-->
-    <!--<result property="Prov" column="Prov"></result>-->
-    <!--<result property="Dist" column="Dist"></result>-->
-    <!--<result property="Coun" column="Coun"></result>-->
-    <!--<result property="CustAddress" column="CustAddress"></result>-->
-    <!--<result property="CustType" column="CustType"></result>-->
-    <!--<result property="Compid" column="Compid"></result>-->
-    <!--<result property="EDI_DateTime" column="EDI_DateTime"></result>-->
+
+    <resultMap id="FindCustomermessageAlls" type="com.zking.pojo.zlgl.x_customermessage">
+        <id column="CustId" property="CustId"></id>
+        <result property="CustName" column="CustName"></result>
+        <result property="CustProject" column="CustProject"></result>
+        <result property="Prov" column="Prov"></result>
+        <result property="Dist" column="Dist"></result>
+        <result property="Coun" column="Coun"></result>
+        <result property="CustAddress" column="CustAddress"></result>
+        <result property="CustType" column="CustType"></result>
+        <result property="Compid" column="Compid"></result>
+        <result property="EDI_DateTime" column="EDI_DateTime"></result>
+        <association property="Company" javaType="Company">
+            <id property="Compid" column="Compid"></id>
+            <result property="CompName" column="CompName"></result>
+        </association>
+    </resultMap>
+
+    <select id="FindCustomermessageAll" resultMap="FindCustomermessageAlls"
+            parameterType="com.zking.pojo.zlgl.x_customermessage">
+        SELECT m.CustId,m.CustName,m.CustProject,m.Prov,m.Dist,m.Coun,m.CustAddress,m.CustType,c.CompName,m.EDI_DateTime
+        FROM x_customermessage m
+        INNER JOIN company c
+        ON m.Compid=c.Compid
+        <where>
+            <if test="CustName!=null">
+                AND CustName LIKE '%${CustName}%'
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="FindCustomermessageCount" resultType="java.lang.Integer"
+            parameterType="com.zking.pojo.zlgl.x_customermessage">
+        SELECT count(m.CustId)
+        FROM x_customermessage m
+        INNER JOIN company c
+        ON m.Compid=c.Compid
+        <where>
+            <if test="CustName!=null">
+                AND CustName LIKE '%${CustName}%'
+            </if>
+        </where>
+    </select>
+
+    <insert id="FindCustomermessageadd" parameterType="com.zking.pojo.zlgl.x_customermessage">
+    INSERT INTO x_customermessage(CustId,CustName,CustProject,Prov,Dist,Coun,CustAddress,Compid) VALUE(UUID(),#{CustName},#{CustProject},#{Prov},#{Dist},#{Coun},#{CustAddress},#{Compid})
+    </insert>
 
 
-    <!--</resultMap>-->
+    <update id="FindCustomermessageEdit" parameterType="com.zking.pojo.zlgl.x_customermessage">
+    UPDATE x_customermessage SET  CustName=#{CustName},CustProject=#{CustProject},Prov=#{Prov},Dist=#{Dist},Coun=#{Coun},CustAddress=#{CustAddress},Compid=#{Compid} WHERE  CustId=#{CustId}
+    </update>
 
-    <!--<select id="FindCustomermessageAll" resultMap="" parameterType="">-->
+    <delete id="FindCustomermessagereomve" parameterType="com.zking.pojo.zlgl.x_customermessage">
+    DELETE FROM  x_customermessage WHERE CustId=#{CustId}
+    </delete>
 
-    <!--</select>-->
 
-    <!--<insert id="FindCustomermessageadd" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
-
-    <!--</insert>-->
-
-    <!--<update id="FindCustomermessageEdit" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
-
-    <!--</update>-->
-
-    <!--<select id="FindCustomermessagereomve" resultType="com.zking.pojo.zlgl.x_customermessage"-->
-    <!--parameterType="com.zking.pojo.zlgl.x_customermessage">-->
-
-    <!--</select>-->
-
-    <!--<delete id="FindCustomermessagereomve" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
-
-    <!--</delete>-->
-
-    <!--<select id="FindDateBind" parameterType="com.zking.pojo.zlgl.x_customermessage">-->
-
-    <!--</select>-->
+    <select id="FindCustomermessageDateBind" resultType="com.zking.pojo.zlgl.x_customermessage"
+    parameterType="com.zking.pojo.zlgl.x_customermessage">
+    SELECT  * FROM x_customermessage WHERE CustId=#{CustId}
+    </select>
 </mapper>
