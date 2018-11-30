@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.zlgl.StorageMapper">
+
+    <select id="FindStorageAll" resultType="com.zking.pojo.zlgl.x_storage"
+            parameterType="com.zking.pojo.zlgl.x_storage">
+        SELECT StorID,StorName,CompId,CompName FROM x_storage
+        <where>
+            <if test="StorName!=null">
+                AND StorName LIKE '${StorName}'
+            </if>
+        </where>
+        LIMIT #{page},#{limit}
+    </select>
+
+    <select id="FindStorageCount" resultType="java.lang.String" parameterType="com.zking.pojo.zlgl.x_storage">
+        SELECT count(StorID) FROM x_storage
+        <where>
+            <if test="StorName!=null">
+                AND StorName LIKE '${StorName}'
+            </if>
+        </where>
+    </select>
+
+    <insert id="FindStorageAdd" parameterType="com.zking.pojo.zlgl.x_storage">
+INSERT INTO x_storage VALUE(UUID(),#{StorName},#{CompId},#{CompName})
+    </insert>
+
+    <update id="FindStorageEdit" parameterType="com.zking.pojo.zlgl.x_storage">
+UPDATE x_storage SET StorName=#{StorName},CompId=${CompId},CompName=#{CompName} WHERE  StorID=#{StorID}
+    </update>
+
+    <delete id="FindStorageRemove" parameterType="com.zking.pojo.zlgl.x_storage">
+DELETE FROM x_storage FROM StorId=#{StorId}
+    </delete>
+
+    <select id="FindStorageDate" resultType="com.zking.pojo.zlgl.x_storage"
+            parameterType="com.zking.pojo.zlgl.x_storage">
+SELECT StorID,StorName,CompId,CompName FROM x_storage WHERE StorID =#{StorID}
+    </select>
+</mapper>
