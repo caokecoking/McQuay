@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +85,8 @@ public class Customermessagecontroller {
     @RequestMapping(value = "FindCustomermessageEdit")
     @ResponseBody
     public int FindCustomermessageEdit(x_customermessage customermessage) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        customermessage.setEDI_DateTime(df.format(new Date()));
         int index = ics.FindCustomermessageEdit(customermessage);
         if (index > 0) {
             return 1;

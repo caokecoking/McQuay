@@ -18,4 +18,6 @@ public interface ProducttypeMapper {
 
     public int FindProducttypeEdit(x_producttype producttype);
 
+    public List<x_producttype> FindAlls();
+
 }

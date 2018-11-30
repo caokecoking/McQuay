@@ -131,4 +131,13 @@ public class CompanyControlller {
         map.put("st", list);
         return map;
     }
+
+    @ResponseBody
+    @RequestMapping("FindCompanyByAttribute2")
+    public Map FindCompanyByAttribute2() {
+        List<Company> list = ics.FindCompanyByAttribute2();
+        Map map = new HashMap();
+        map.put("st", list);
+        return map;
+    }
 }

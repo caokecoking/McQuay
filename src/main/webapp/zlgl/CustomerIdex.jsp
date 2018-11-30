@@ -20,7 +20,6 @@
         <input class="layui-input" name="id" id="names" autocomplete="off">
     </div>
     <button class="layui-btn" data-type="reload">搜索</button>
-
 </div>
 
 
