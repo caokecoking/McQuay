@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.xtgl.IDepartmentMapper">
+    <select id="findLeaveDepartment" resultType="Department">
+        select * FROM Department
+    </select>
+    <select id="findAllByDepartment" resultType="Department" parameterType="Department">
+        select * FROM Department
+        <where>
+            <if test="DeptName!=null">
+                DeptName like '%${DeptName}%'
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+    <select id="findOnlybyDepartment" parameterType="Department" resultType="Department">
+        select * from department where deptid=#{deptid}
+    </select>
+    <select id="getMax" resultType="integer" parameterType="Department">
+        select count(DeptName) from Department where DeptName like '%${DeptName}%'
+    </select>
+    <insert id="addDepartment" parameterType="Department">
+        INSERT INTO department VALUES (UUID(),#{DeptCoding},#{DeptName})
+    </insert>
+    <update id="editDepartment" parameterType="Department">
+        update department set DeptName=#{DeptName} where Deptid =#{Deptid}
+    </update>
+    <delete id="removeDepartment" parameterType="Department">
+
+    </delete>
+</mapper>

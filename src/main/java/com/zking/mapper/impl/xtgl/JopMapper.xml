@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.xtgl.IJopMapper">
+    <select id="findLeaveJopId" resultType="Jop">
+        select * from Jop
+    </select>
+    <select id="findAllByJop" resultType="Jop" parameterType="Jop">
+        select * from jop
+        <where>
+            <if test="JopName!=null">
+                and JopName like '%${JopName}%'
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+    <select id="findOnlybyJop" resultType="Jop" parameterType="Jop">
+        select * from Jop where JopId=#{JopId}
+    </select>
+    <select id="getMax" resultType="integer" parameterType="Jop">
+        select count(JopId) from Jop
+        <where>
+            <if test="JopName!=null">
+                and JopName like '%${JopName}%'
+            </if>
+        </where>
+    </select>
+    <insert id="addJop" parameterType="Jop">
+        INSERT INTO jop VALUES (#{JopId},#{JopName},#{Rel})
+    </insert>
+    <update id="editJop" parameterType="Jop">
+        UPDATE jop SET JopName=JopName,Rel=Rel WHERE JopId=#{JopId}
+    </update>
+    <delete id="removeJop" parameterType="Jop">
+        DELETE FROM jop WHERE JopId=#{JopId}
+    </delete>
+</mapper>
