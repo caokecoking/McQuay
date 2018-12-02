@@ -21,10 +21,7 @@
     </div>
     <button class="layui-btn" data-type="reload">搜索</button>
 </div>
-
-
 <table id="demo" lay-filter="test"></table>
-
 
 <script>
     layui.use(['table'], function () {
@@ -33,23 +30,25 @@
             elem: '#demo'
             , height: 420
             , toolbar: 'default'
-            , url: '../FindAll.action' //数据接口
+            , url: '../FindCustomermessageAll.action' //数据接口
             , title: '客户联系人表'
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'cid', title: 'ID', width: '10%', sort: true, fixed: 'left'}
-                , {field: 'cname', title: '联系人名称', width: '10%'}
-                , {field: 'custSeat', title: '联系人手机号码', width: '10%'}
-                , {field: 'custPhone', title: '联系人分手机号码', width: '10%'}
-                , {field: 'custPartphone', title: '座机号码', width: '10%'}
-                , {field: 'custEmail', title: '邮箱', width: '10%'}
-                , {field: 'edi_DateTime', title: '最后修改时间', width: '10%'},
+                {field: 'custId', title: 'ID', width: '16%', sort: true, fixed: 'left'}
+                , {field: 'custName', title: '客户名称', width: '10%'}
+                , {field: 'custProject', title: '项目名称', width: '10%'}
+                , {field: 'prov', title: '省', width: '7%'}
+                , {field: 'dist', title: '市', width: '7%'}
+                , {field: 'coun', title: '区', width: '7%'}
+                , {field: 'custAddress', title: '详细地址', width: '7%'},
+                {field: 'custType', title: '客户类型', width: '7%'},
                 {
-                    field: 'x_customermessage',
-                    title: '客户名',
-                    width: "15%",
-                    templet: '<div>{{d.x_customermessage.custName}}</div>'
-                }
+                    field: 'company',
+                    title: '经销商编号',
+                    width: "10%",
+                    templet: '<div>{{d.company.compName}}</div>'
+                },
+                {field: 'edi_DateTime', title: '最后修改时间', width: '10%'}
                 , {fixed: 'right', width: 165, align: 'center', toolbar: '#barDemo'}
             ]], limits: [5, 10, 15, 20],
             limit: 5
@@ -63,13 +62,13 @@
                 var names = $('#names');
                 //执行重载
                 table.reload('demo', {
-                    url: '../FindAll.action',
+                    url: '../FindCustomermessageAll.action',
                     type: 'post',
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        CName: names.val(),
+                        CustName: names.val(),
                     },
                 });
             }
@@ -87,13 +86,13 @@
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    location.href = '../FindCustomerremove.action?Cid=' + data.cid;
+                    location.href = '../FindCustomermessagereomve.action?CustId=' + data.custId;
                 });
             } else if (layEvent === 'edit') {
                 layer.open({
-                    title: "联系人修改",
+                    title: "客户修改",
                     type: 2,
-                    content: 'http://localhost:8080/zlgl/CustomerEdit.jsp?ids=' + data.cid //这里content是一个普通的String
+                    content: 'http://localhost:8080/zlgl/CustomermessageEdit.jsp?ids=' + data.custId //这里content是一个普通的String
                     , offset: 'auto',
                     area: ['700px', '600px']
                 });
@@ -108,9 +107,9 @@
             switch (obj.event) {
                 case 'add':
                     layer.open({
-                        title: "联系人增加",
+                        title: "客户增加",
                         type: 2,
-                        content: 'http://localhost:8080/zlgl/CustomerAdd.jsp' //这里content是一个普通的String
+                        content: 'http://localhost:8080/zlgl/CustomermessageAdd.jsp' //这里content是一个普通的String
                         , offset: 'auto',
                         area: ['700px', '600px']
                     });

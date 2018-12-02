@@ -59,7 +59,7 @@
 
 
     <update id="FindCustomermessageEdit" parameterType="com.zking.pojo.zlgl.x_customermessage">
-    UPDATE x_customermessage SET  CustName=#{CustName},CustProject=#{CustProject},Prov=#{Prov},Dist=#{Dist},Coun=#{Coun},CustAddress=#{CustAddress},Compid=#{Compid} WHERE  CustId=#{CustId}
+    UPDATE x_customermessage SET  CustName=#{CustName},CustProject=#{CustProject},Prov=#{Prov},Dist=#{Dist},Coun=#{Coun},CustAddress=#{CustAddress},Compid=#{Compid},EDI_DateTime=#{EDI_DateTime} WHERE  CustId=#{CustId}
     </update>
 
     <delete id="FindCustomermessagereomve" parameterType="com.zking.pojo.zlgl.x_customermessage">
@@ -68,7 +68,7 @@
 
 
     <select id="FindCustomermessageDateBind" resultType="com.zking.pojo.zlgl.x_customermessage"
-    parameterType="com.zking.pojo.zlgl.x_customermessage">
+            parameterType="com.zking.pojo.zlgl.x_customermessage">
     SELECT  * FROM x_customermessage WHERE CustId=#{CustId}
     </select>
 </mapper>

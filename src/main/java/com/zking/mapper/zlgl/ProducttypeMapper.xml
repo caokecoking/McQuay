@@ -6,16 +6,16 @@
     <select id="FindProducttypeAll" resultType="com.zking.pojo.zlgl.x_producttype"
             parameterType="com.zking.pojo.zlgl.x_producttype">
         SELECT PtId,PtDescribe FROM x_producttype
-        <where>zlgl
+        <where>
             <if test="PtDescribe!=null">
                 AND PtDescribe LIKE '${PtDescribe}'
             </if>
-            limit #{page},#{limit}
         </where>
+        limit #{page},#{limit}
     </select>
 
 
-    <select id="FindProducttypeCount" resultType="com.zking.pojo.zlgl.x_producttype"
+    <select id="FindProducttypeCount" resultType="java.lang.Integer"
             parameterType="com.zking.pojo.zlgl.x_producttype">
         SELECT count(PtId) FROM x_producttype
         <where>
@@ -26,14 +26,15 @@
     </select>
 
     <insert id="FindProducttypeAdd" parameterType="com.zking.pojo.zlgl.x_producttype">
-        INNER  INTO x_producttype(PtId,PtDescribe) VALUE (uuid(),#{PtDescribe})
+        INSERT INTO x_producttype VALUE (UUID(),#{PtDescribe})
     </insert>
 
     <delete id="FindProducttypeRemove" parameterType="com.zking.pojo.zlgl.x_producttype">
 DELETE FROM x_producttype WHERE  PtId=#{PtId}
     </delete>
 
-    <select id="FindDateBind" parameterType="com.zking.pojo.zlgl.x_producttype">
+    <select id="FindDateBind" resultType="com.zking.pojo.zlgl.x_producttype"
+            parameterType="com.zking.pojo.zlgl.x_producttype">
         SELECT  * FROM x_producttype WHERE PtId=#{PtId}
     </select>
 
@@ -41,4 +42,8 @@ DELETE FROM x_producttype WHERE  PtId=#{PtId}
 UPDATE  x_producttype SET PtDescribe=#{PtDescribe}  WHERE PtId=#{PtId}
     </update>
 
+    <select id="FindAlls" resultType="com.zking.pojo.zlgl.x_producttype"
+    >
+        SELECT  * FROM  x_producttype
+    </select>
 </mapper>

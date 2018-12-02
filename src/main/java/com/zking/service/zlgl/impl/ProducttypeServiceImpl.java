@@ -44,4 +44,9 @@ public class ProducttypeServiceImpl implements IProducttypeService {
     public int FindProducttypeEdit(x_producttype producttype) {
         return pm.FindProducttypeEdit(producttype);
     }
+
+    @Override
+    public List<x_producttype> FindAlls() {
+        return pm.FindAlls();
+    }
 }

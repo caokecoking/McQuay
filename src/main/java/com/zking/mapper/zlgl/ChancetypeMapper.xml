@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.zlgl.ChancetypeMapper">
+
+
+    <resultMap id="FindChancetypeAll" type="com.zking.pojo.zlgl.x_chancetype">
+        <id property="CtId" column="CtId"></id>
+        <result property="PtId" column="PtId"></result>
+        <result property="CtName" column="CtName"></result>
+        <result property="CtDescribe" column="CtDescribe"></result>
+        <result property="Compid" column="Compid"></result>
+        <result property="CtUnit" column="CtUnit"></result>
+        <result property="CtUnitprice" column="CtUnitprice"></result>
+        <result property="ProductionDate" column="ProductionDate"></result>
+
+        <association property="Company" javaType="Company">
+            <id property="Compid" column="Compid"></id>
+            <result property="CompName" column="CompName"></result>
+        </association>
+
+        <association property="x_producttype" javaType="x_producttype">
+            <id property="PtId" column="PtId"></id>
+            <result property="PtDescribe" column="PtDescribe"></result>
+        </association>
+    </resultMap>
+
+
+    <select id="FindChancetypeAll" resultMap="FindChancetypeAll" parameterType="com.zking.pojo.zlgl.x_chancetype">
+        SELECT cc.CtId,cc.CtName,c.CompName,p.PtDescribe,cc.CtUnit,cc.CtUnitprice,cc.CtDescribe,cc.ProductionDate FROM
+        x_chancetype cc
+        INNER JOIN x_producttype p
+        ON cc.PtId=p.PtId
+        INNER JOIN company c
+        ON cc.Compid=c.Compid
+        <where>
+            <if test="PtId!=null">
+                AND cc.PtId=#{PtId}
+            </if>
+            <if test="Compid!=null">
+                AND cc.Compid=#{Compid}
+            </if>
+            <if test="CtName!=null">
+                AND cc.CtName LIKE '%${CtName}%'
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="FindChancetypeCount" resultType="java.lang.Integer" parameterType="com.zking.pojo.zlgl.x_chancetype">
+        SELECT count(cc.CtId) FROM x_chancetype cc
+        INNER JOIN x_producttype p
+        ON cc.PtId=p.PtId
+        INNER JOIN company c
+        ON cc.Compid=c.Compid
+        <where>
+            <if test="PtId!=null">
+                AND cc.PtId=#{PtId}
+            </if>
+            <if test="Compid!=null">
+                AND cc.Compid=#{Compid}
+            </if>
+            <if test="CtName!=null">
+                AND cc.CtName LIKE '%${CtName}%'
+            </if>
+        </where>
+    </select>
+
+    <insert id="FindChancetypeAdd" parameterType="com.zking.pojo.zlgl.x_chancetype">
+        INSERT INTO x_chancetype(CtId,PtId,CtName,CtDescribe,Compid,CtUnit,CtUnitprice,ProductionDate)
+         VALUE (UUID(),#{PtId},#{CtName},#{CtDescribe},#{Compid},#{CtUnit},#{CtUnitprice},#{ProductionDate})
+    </insert>
+
+    <delete id="FindChancetypeRemove" parameterType="com.zking.pojo.zlgl.x_chancetype">
+    DELETE FROM  x_chancetype WHERE CtId=#{CtId}
+    </delete>
+
+    <select id="FindChancetypeDateBind" resultType="com.zking.pojo.zlgl.x_chancetype"
+            parameterType="com.zking.pojo.zlgl.x_chancetype">
+    SELECT * FROM  x_chancetype WHERE CtId=#{CtId}
+    </select>
+
+    <update id="FindChancetypeEdit" parameterType="com.zking.pojo.zlgl.x_chancetype">
+     UPDATE x_chancetype SET CtName=#{CtName},PtId=#{PtId},Compid=#{Compid},CtUnit=#{CtUnit},CtUnitprice=#{CtUnitprice},CtDescribe=#{CtDescribe} WHERE CtId=#{CtId}
+   </update>
+
+</mapper>
