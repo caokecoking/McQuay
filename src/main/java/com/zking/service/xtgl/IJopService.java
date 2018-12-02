@@ -1,10 +1,10 @@
-package com.zking.mapper.xtgl;
+package com.zking.service.xtgl;
 
 import com.zking.pojo.xtgl.Jop;
 
 import java.util.List;
 
-public interface IJopMapper {
+public interface IJopService {
     // 请假岗位表邦定
     public List<Jop> findLeaveJopId();
 

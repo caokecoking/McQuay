@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.mapper.xtgl.IPersonnelMapper">
+    <resultMap id="PersonAll" type="Personnel">
+        <id column="PersId" property="PersId"></id>
+        <result column="PersCoding" property="PersCoding"></result>
+        <result column="PersName" property="PersName"></result>
+        <result column="PersPassword" property="PersPassword"></result>
+        <result column="WorkCenter" property="WorkCenter"></result>
+        <result column="Sex" property="Sex"></result>
+        <result column="FixedTelephone" property="FixedTelephone"></result>
+        <result column="TheExtension" property="TheExtension"></result>
+        <result column="Phone" property="Phone"></result>
+        <result column="Email" property="Email"></result>
+        <result column="Hiredate" property="Hiredate"></result>
+        <collection property="sc" ofType="Company">
+            <id column="Compid" property="Compid"></id>
+            <result column="CompName" property="CompName"></result>
+        </collection>
+        <collection property="sd" ofType="Department">
+            <id column="Deptid" property="Deptid"></id>
+            <result column="DeptName" property="DeptName"></result>
+        </collection>
+        <collection property="sj" ofType="Jop">
+            <id column="JopId" property="JopId"></id>
+            <result column="JopName" property="JopName"></result>
+        </collection>
+    </resultMap>
+    <select id="findPersonnel" resultMap="PersonAll">
+        select * from Personnel p
+        inner join personnelcompany pc
+        on p.persid=pc.persid
+        inner join company c
+        on pc.Compid=c.Compid
+        inner join personneldepartment pd
+        on p.persid=pd.persid
+        inner join department d
+        on pd.Deptid=d.Deptid
+        inner join departmentjop pj
+        on p.persid =pj.persid
+        inner join Jop j
+        on pj.JopId=j.JopId
+    </select>
+    <select id="FindOnlyBy" resultMap="PersonAll" parameterType="Personnel">
+        select *,c.compid as name,d.deptid as startTime,j.jopid as endTime from Personnel p
+        inner join personnelcompany pc
+        on p.persid=pc.persid
+        inner join company c
+        on pc.Compid=c.Compid
+        inner join personneldepartment pd
+        on p.persid=pd.persid
+        inner join department d
+        on pd.Deptid=d.Deptid
+        inner join personneljop pj
+        on p.persid =pj.persid
+        inner join Jop j
+        on pj.JopId=j.JopId where p.PersId =#{PersId}
+    </select>
+    <select id="findPersonnelPost" resultMap="PersonAll" parameterType="Personnel">
+        select * from Personnel p
+        inner join personnelcompany pc
+        on p.persid=pc.persid
+        inner join company c
+        on pc.Compid=c.Compid
+        inner join personneldepartment pd
+        on p.persid=pd.persid
+        inner join department d
+        on pd.Deptid=d.Deptid
+        inner join personneljop pj
+        on p.persid =pj.persid
+        inner join Jop j
+        on pj.JopId=j.JopId where p.PersName like '%${PersName}%'
+        limit #{page},#{limit}
+    </select>
+    <select id="getPersonnelPostCount" resultType="integer" parameterType="Personnel">
+        select count(p.PersName) from Personnel p
+        inner join personnelcompany pc
+        on p.persid=pc.persid
+        inner join company c
+        on pc.Compid=c.Compid
+        inner join personneldepartment pd
+        on p.persid=pd.persid
+        inner join department d
+        on pd.Deptid=d.Deptid
+        inner join personneljop pj
+        on p.persid =pj.persid
+        inner join Jop j
+        on pj.JopId=j.JopId WHERE p.PersName like '%${PersName}%'
+    </select>
+    <insert id="addPersonnel" parameterType="Personnel">
+        <selectKey keyProperty="PersCoding" order="BEFORE" resultType="java.lang.String">
+            SELECT MAX(SUBSTR(PersCoding, -5))+1 FROM Personnel
+        </selectKey>
+        insert into Personnel(PersId,PersCoding,PersName,WorkCenter,PersPassword,Sex,Phone
+        ,Email,Hiredate) values (UUID(),#{PersCoding},#{PersName},#{PersPassword},#{WorkCenter}
+        ,#{Sex},#{Phone},#{Email},now())
+    </insert>
+    <delete id="removePersonnel" parameterType="Personnel">
+        delete from Personnel where PersId=#{PersId};
+    </delete>
+    <delete id="removepersonnelcompany" parameterType="Personnel">
+        delete from personnelcompany where PersId=#{PersId};
+    </delete>
+    <delete id="removepersonneldepartment" parameterType="Personnel">
+        delete from personneldepartment where PersId=#{PersId};
+    </delete>
+    <delete id="removepersonneljop" parameterType="Personnel">
+        delete from personneljop where PersId=#{PersId};
+    </delete>
+    <select id="FindPersonnelLoGin" resultType="Personnel" parameterType="Personnel">
+        select * from Personnel where PersCoding=#{PersCoding} And PersPassword=#{PersPassword}
+    </select>
+    <insert id="addPersonnelCompany" parameterType="Personnel">
+        insert into personnelcompany(PersId,Compid) values((SELECT PersId FROM personnel ORDER BY hiredate DESC LIMIT 0,1),#{name})
+    </insert>
+    <insert id="addPersonneldepartment" parameterType="Personnel">
+        insert into personneldepartment(PersId,deptid) values((SELECT PersId FROM personnel ORDER BY hiredate DESC LIMIT 0,1),#{startTime})
+    </insert>
+    <insert id="addPersonnelJop" parameterType="Personnel">
+        insert into personneljop(PersId,jopid) values((SELECT PersId FROM personnel ORDER BY hiredate DESC LIMIT 0,1),#{endTime})
+    </insert>
+    <update id="editPersonnel" parameterType="Personnel">
+        UPDATE personnel SET PersName=#{PersName},WorkCenter=#{WorkCenter},
+        PersPassword=#{PersPassword},`Sex` =#{Sex},`Phone` =#{Phone},`Email` =#{Email} where `PersId` =#{PersId}
+    </update>
+    <update id="editPersonnelCompany" parameterType="Personnel">
+        UPDATE personnelcompany SET compid=#{name} where persid=#{PersId}
+    </update>
+    <update id="editPersonnelDepartment" parameterType="Personnel">
+        UPDATE PersonnelDepartment SET deptid=#{startTime} where persid=#{PersId}
+    </update>
+    <update id="editPersonnelJop" parameterType="Personnel">
+        UPDATE PersonnelJop SET JopId=#{endTime} where persid=#{PersId}
+    </update>
+</mapper>

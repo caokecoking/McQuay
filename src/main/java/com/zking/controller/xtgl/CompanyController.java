@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RequestMapping("Company")
 @Controller
-public class CompanyControlller {
+public class CompanyController {
 
     @Autowired
     private ICompanyService ics;

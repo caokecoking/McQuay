@@ -18,5 +18,5 @@ public interface IDepartmentService {
 
     public int editDepartment(Department Department);
 
-    public int removeDepartment(Department department);
+    public List<Department> findAllByCompid(String Compid);
 }

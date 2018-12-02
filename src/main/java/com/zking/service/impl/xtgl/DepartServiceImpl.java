@@ -44,7 +44,8 @@ public class DepartServiceImpl implements IDepartmentService {
     }
 
     @Override
-    public int removeDepartment(Department department) {
-        return idm.removeDepartment(department);
+    public List<Department> findAllByCompid(String Compid) {
+        return idm.findAllByCompid(Compid);
     }
+
 }

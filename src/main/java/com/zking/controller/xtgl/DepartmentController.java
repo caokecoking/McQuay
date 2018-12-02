@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,11 @@ public class DepartmentController {
         map.put("code", 0);
         map.put("count", total);
         return map;
+    }
+    @ResponseBody
+    @RequestMapping("findAllByCompid")
+    public List<Department> findAllByCompid(Department department) {
+        return ids.findAllByCompid(department.getName());
     }
 
     @ResponseBody
