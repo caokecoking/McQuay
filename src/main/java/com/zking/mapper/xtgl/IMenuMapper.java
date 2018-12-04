@@ -9,9 +9,9 @@ public interface IMenuMapper {
 
     public List<Menu> findSonMenuByParent(Menu menu);
 
-    public List<Menu> findParentMenuAll(String query);
+    public List<Menu> findParentMenuAll(Menu menu);
 
-    public List<Menu> findSonMenuByPid(String MenuParent);
+    public List<Menu> findSonMenuByPid(String MenuId);
     /**
      * 查询所有的父级菜单
      *

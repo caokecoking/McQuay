@@ -29,14 +29,6 @@
     </select>
     <select id="findAllByDepartment" resultType="Department" parameterType="Department">
         select * FROM Department d
-        inner join companydepartment cd
-        on d.deptid=cd.deptid
-        inner join Company c
-        on cd.compid=c.compid
-        inner join departmentjop dj
-        on d.deptid=dj.deptid
-        inner join jop j
-        on j.jopid=dj.jopid
         <where>
             <if test="DeptName!=null">
                 d.DeptName like '%${DeptName}%'
@@ -45,26 +37,10 @@
         limit #{page},#{limit}
     </select>
     <select id="findOnlybyDepartment" parameterType="Department" resultType="Department">
-        select * FROM Department d
-        inner join companydepartment cd
-        on d.deptid=cd.deptid
-        inner join Company c
-        on cd.compid=c.compid
-        inner join departmentjop dj
-        on d.deptid=dj.deptid
-        inner join jop j
-        on j.jopid=dj.jopid where d.deptid=#{deptid}
+        select * FROM Department d  where d.deptid=#{deptid}
     </select>
     <select id="getMax" resultType="integer" parameterType="Department">
-        select count(d.deptid) FROM Department d
-        inner join companydepartment cd
-        on d.deptid=cd.deptid
-        inner join Company c
-        on cd.compid=c.compid
-        inner join departmentjop dj
-        on d.deptid=dj.deptid
-        inner join jop j
-        on j.jopid=dj.jopid where d.DeptName like '%${DeptName}%'
+        select count(d.deptid) FROM Department d where d.DeptName like '%${DeptName}%'
     </select>
     <insert id="addDepartment" parameterType="Department">
         INSERT INTO department VALUES (UUID(),#{DeptCoding},#{DeptName})

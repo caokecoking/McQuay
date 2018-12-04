@@ -52,15 +52,7 @@
                 <div class="layui-tab-item layui-show"></div>
             </div>
         </div>
-
-
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
-
-        </div>
     </div>
-
-
     <script type="text/javascript">
         /*树菜单*/
         $.ajax({
@@ -84,7 +76,7 @@
                                     element.tabAdd('demo', {
                                         title: node.name //用于演示
                                         ,
-                                        content: '<iframe frameborder="0" src="' + node.mpath + '" style="width: 100%;height:100%;"></iframe>'
+                                        content: '<iframe frameborder="0" src="' + node.mpath + '" style="width: 100%;height:87%;"></iframe>'
                                         ,
                                         id: node.id//实际使用一般是规定好的id，这里以时间戳模拟下
                                     })

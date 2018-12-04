@@ -18,6 +18,8 @@ public class Tree  extends BasePojo {
 	private String mparent;
 
 	private String mpath;
+
+	private String parentId;
 	/**
 	 * 节点状态(open或closed 默认:open 如果为closed的时候，将不自动展开该节点)
 	 */
@@ -33,12 +35,13 @@ public class Tree  extends BasePojo {
 	/**
 	 * 一个节点数组声明了若干节点
 	 */
-	private List<Menu> children = new ArrayList<>();
+	private List<Menu> children;
+    private List<Menu> list;
 
 	public Tree() {
 	}
 
-	public Tree(String id, String name, String mparent, String mpath, String state, boolean checked, String attributes, List<Menu> children) {
+	public Tree(String id, String name, String mparent, String mpath, String state, boolean checked, String attributes, List<Menu> children, List<Menu> list) {
 		this.id = id;
 		Name = name;
 		this.mparent = mparent;
@@ -47,6 +50,7 @@ public class Tree  extends BasePojo {
 		this.checked = checked;
 		this.attributes = attributes;
 		this.children = children;
+		this.list = list;
 	}
 
 	public String getId() {
@@ -57,10 +61,12 @@ public class Tree  extends BasePojo {
 		this.id = id;
 	}
 
+	@Override
 	public String getName() {
 		return Name;
 	}
 
+	@Override
 	public void setName(String name) {
 		Name = name;
 	}
@@ -111,5 +117,21 @@ public class Tree  extends BasePojo {
 
 	public void setChildren(List<Menu> children) {
 		this.children = children;
+	}
+
+	public List<Menu> getList() {
+		return list;
+	}
+
+	public void setList(List<Menu> list) {
+		this.list = list;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 }

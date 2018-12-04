@@ -8,7 +8,10 @@
         <result column="MenuName" property="name"/>
         <result column="MenuParent" property="mparent"/>
         <result column="MenuPath" property="mpath"/>
+        <result column="pid" property="parentId"/>
         <collection column="MenuId" property="children"
+                    select="com.zking.mapper.xtgl.ITreeMapper.findSonMenuTreeByMCode"/>
+        <collection column="MenuId" property="list"
                     select="com.zking.mapper.xtgl.ITreeMapper.findSonMenuTreeByMCode"/>
     </resultMap>
     <select id="findMenuTree" resultMap="findParentMenuTreeMap">
@@ -20,8 +23,10 @@
         <result column="MenuName" property="name"/>
         <result column="MenuParent" property="mparent"/>
         <result column="MenuPath" property="mpath"/>
+        <result column="pid" property="parentId"/>
     </resultMap>
     <select id="findSonMenuTreeByMCode" resultMap="findSonMenuTreeByMCodeMap" parameterType="java.lang.String">
        SELECT * FROM menu where MenuParent=#{MenuId}
     </select>
+
 </mapper>

@@ -68,7 +68,6 @@ public class DepartmentController {
     @ResponseBody
     @RequestMapping("findOnly")
     public Department findOnly(Department department) {
-        Department department1 = ids.findOnlybyDepartment(department);
-        return department1;
+        return ids.findOnlybyDepartment(department);
     }
 }

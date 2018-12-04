@@ -43,9 +43,9 @@
     <label class="layui-form-label">省 / 市 / 县</label>
     <div class="layui-input-block">
         <div data-toggle="distpicker" id="distpicker">
-            <select id="Prov"  readonly="readonly" name="province" style="height:30px"></select>
-            <select id="Dist"  readonly="readonly" name="city" style="height:30px"></select>
-            <select id="Coun"  readonly="readonly" name="district" style="height:30px"></select>
+            <select id="Prov"  readonly="readonly" name="province" style="height:30px"  disabled="disabled"></select>
+            <select id="Dist"  readonly="readonly" name="city" style="height:30px"  disabled="disabled"></select>
+            <select id="Coun"  readonly="readonly" name="district" style="height:30px"  disabled="disabled"></select>
         </div>
     </div>
 </div>

@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("Menu")
@@ -21,59 +19,33 @@ public class MenuController {
     @Autowired
     private IMenuService ims;
 
-    @ResponseBody
-    @RequestMapping("findParentMenuByJop")
-    public List<Menu> findParentMenuByJop(Personnel personnel){
-//        List<Menu> lm=null;
-//        for (Jop jop : personnel.getSj()) {
-//            lm=ims.findParentMenuByJop(jop.getJopId());
-//            return lm;
-//        }
-//        return lm;
-        return ims.findParentMenuAll1();
-    }
 
     @ResponseBody
-    @RequestMapping("findSonMenuByParent")
-    public List<Menu> findSonMenuByParent(Personnel personnel,String endTime){
-        List<Menu> lm=null;
-        Menu menu=new Menu();
-        menu.setEndTime(endTime);
-        for (Jop jop : personnel.getSj()) {
-            menu.setStartTime(jop.getJopId());
-            lm=ims.findSonMenuByParent(menu);
-            return lm;
-        }
-        return lm;
+    @RequestMapping("findMenuTree")
+    public Map findMenuTree1(Menu menu){
+        Map<String,Object> map=new HashMap<>();
+        map.put("data",ims.findParentMenuAll(menu));
+        map.put("code",0);
+        map.put("msg","获取成功");
+        return map;
+    }
+    @ResponseBody
+    @RequestMapping("findParentMenuAll1")
+    public Map findParentMenuAll1(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("data",ims.findParentMenuAll1());
+        map.put("code",0);
+        return map;
     }
 
-    @RequestMapping("findMenuTreeGrid")
-    public List<Menu> findMenuTreeGrid(String query){
-        List<Menu> lms = new ArrayList<>();
-        List<Menu> lm = ims.findParentMenuAll(query);
-        for (Menu menu : lm) {
-            lms.add(menu);
-            List<Menu> lmm = ims.findSonMenuByPid(menu.getMenuId());
-            for (Menu menu2 : lmm) {
-                lms.add(menu2);
-            }
-        }
-        return lms;
-    }
 
     @ResponseBody
-    @RequestMapping("findParentMenuAll")
-    public List<Menu> findParentMenuAll(String addOrEdit){
-        List<Menu> lm = ims.findParentMenuAll1();
-        if (addOrEdit.equals("add")) {
-            Menu m = new Menu();
-            m.setMenuId("--请选择父菜单--");
-            m.setMenuName("--请选择父菜单--");
-            lm.add(0, m);
-        }
-        return lm;
+    @RequestMapping("findOnly")
+    public Map findOnly(Menu menu){
+        Map<String,Object> map=new HashMap<>();
+        map.put("Menu",ims.findSonMenuByPid(menu.getMenuId()));
+        return map;
     }
-
     @ResponseBody
     @RequestMapping("addMenu")
     public int addMenu(Menu menu){

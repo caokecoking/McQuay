@@ -25,8 +25,8 @@ public class MenuServiceImpl implements IMenuService{
     }
 
     @Override
-    public List<Menu> findParentMenuAll(String query) {
-        return imm.findParentMenuAll(query);
+    public List<Menu> findParentMenuAll(Menu menu) {
+        return imm.findParentMenuAll(menu);
     }
 
     @Override
@@ -51,6 +51,6 @@ public class MenuServiceImpl implements IMenuService{
 
     @Override
     public int editMenu(Menu menu) {
-        return 0;
+        return imm.editMenu(menu);
     }
 }

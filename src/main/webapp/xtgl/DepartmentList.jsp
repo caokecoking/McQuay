@@ -31,7 +31,7 @@
         table.render({
             elem: '#demo',
             id: 'testReload'
-            , height: '600px'
+            , height: '500px'
             , toolbar: 'default'
             , url: '/department/findAll.action' //数据接口
             , page: true //开启分页

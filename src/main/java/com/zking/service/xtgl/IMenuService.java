@@ -9,7 +9,7 @@ public interface IMenuService {
 
     public List<Menu> findSonMenuByParent(Menu menu);
 
-    public List<Menu> findParentMenuAll(String query);
+    public List<Menu> findParentMenuAll(Menu menu);
 
     public List<Menu> findSonMenuByPid(String MenuParent);
     /**

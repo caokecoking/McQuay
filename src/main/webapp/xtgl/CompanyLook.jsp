@@ -28,9 +28,9 @@
 <label class="layui-form-label">省 / 市 / 县</label>
 <div class="layui-input-block">
     <div data-toggle="distpicker" id="distpicker">
-        <select id="Prov"  readonly="readonly" name="province" style="height:30px"></select>
-        <select id="Dist"  readonly="readonly" name="city" style="height:30px"></select>
-        <select id="Coun"  readonly="readonly" name="district" style="height:30px"></select>
+        <select id="Prov"  readonly="readonly" name="province" style="height:30px"  disabled="disabled"></select>
+        <select id="Dist"  readonly="readonly" name="city" style="height:30px"  disabled="disabled"></select>
+        <select id="Coun"  readonly="readonly" name="district" style="height:30px"  disabled="disabled"></select>
     </div>
 </div>
 <form class="layui-form">
@@ -43,10 +43,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">属性</label>
         <div class="layui-input-block">
-            <select  readonly="readonly" id="CompAttribute">
-                <option value="">--请选择--</option>
-                <option value="工厂">工厂</option>
-                <option value="销售公司">销售公司</option>
+            <input type="text" readonly="readonly" id="CompAttribute" placeholder="邮箱地址" autocomplete="off" class="layui-input">
             </select>
         </div>
     </div>

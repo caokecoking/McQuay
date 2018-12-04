@@ -44,7 +44,7 @@
         table.render({
             elem: '#demo',
             id: 'testReload'
-            , height: '600px'
+            , height: '500px'
             , toolbar: 'default'
             , url: '/Agreement/findAll.action' //数据接口
             , page: true //开启分页
@@ -87,7 +87,7 @@
                 title: '增加协议店',
                 type : 2,
                 content: 'AgreementAdd.jsp', //数组第二项即吸附元素选择器或者DOM
-                area :['600px','700px']
+                area :['600px','560px']
             });
         });
         $('.layui-btn').on('click', function () {
