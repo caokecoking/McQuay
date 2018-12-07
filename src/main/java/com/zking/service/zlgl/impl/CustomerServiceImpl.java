@@ -43,4 +43,14 @@ public class CustomerServiceImpl implements ICustomerService {
     public int Findx_customerEdit(x_customer c) {
         return cm.Findx_customerEdit(c);
     }
+
+    @Override
+    public List<x_customer> FindCustomerDate() {
+        return cm.FindCustomerDate();
+    }
+
+    @Override
+    public x_customer FindCustomerDateAll(x_customer customer) {
+        return cm.FindCustomerDateAll(customer);
+    }
 }

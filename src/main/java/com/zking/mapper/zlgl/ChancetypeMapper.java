@@ -19,4 +19,5 @@ public interface ChancetypeMapper {
 
     public int FindChancetypeEdit(x_chancetype chancetype);
 
+    public List<x_chancetype> FindChancetypeListDate();
 }

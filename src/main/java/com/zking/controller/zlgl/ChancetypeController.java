@@ -86,4 +86,13 @@ public class ChancetypeController {
         map.put("c", c);
         return map;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "FindChancetypeListDate")
+    public Map Find() {
+        Map map = new HashMap();
+        List<x_chancetype> lc = ics.FindChancetypeListDate();
+        map.put("lc", lc);
+        return map;
+    }
 }

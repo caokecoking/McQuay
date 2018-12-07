@@ -4,6 +4,7 @@ import com.zking.pojo.zlgl.x_customer;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository("IcustomerMapper")
 public interface customerMapper {
 
@@ -18,4 +19,9 @@ public interface customerMapper {
     public x_customer FindcustomerDate(x_customer c);
 
     public int Findx_customerEdit(x_customer c);
+
+    public List<x_customer> FindCustomerDate();
+
+    public x_customer FindCustomerDateAll(x_customer customer);
+
 }

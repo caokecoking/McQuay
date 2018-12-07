@@ -60,4 +60,31 @@
 UPDATE x_customer SET CName=#{CName},CustSeat=#{CustSeat},CustPhone=#{CustPhone},CustPartphone=#{CustPartphone},CustEmail=#{CustEmail},EDI_DateTime=#{EDI_DateTime},CustId=#{CustId} Where Cid=#{Cid}
     </update>
 
+    <select id="FindCustomerDate" resultType="com.zking.pojo.zlgl.x_customer"
+            parameterType="com.zking.pojo.zlgl.x_customer">
+        SELECT  * FROM x_customer
+    </select>
+
+    <resultMap id="FindCustomerDateAll" type="com.zking.pojo.zlgl.x_customer">
+        <id property="Cid" column="Cid"></id>
+        <result property="CName" column="CName"></result>
+        <result property="CustSeat" column="CustSeat"></result>
+        <association property="x_customermessage" javaType="x_customermessage">
+            <id property="CustId" column="CustId"></id>
+            <result property="CustName" column="CustName"></result>
+            <result property="Prov" column="Prov"></result>
+            <result property="Dist" column="Dist"></result>
+            <result property="Coun" column="Coun"></result>
+            <result property="CustAddress" column="CustAddress"></result>
+        </association>
+    </resultMap>
+
+    <select id="FindCustomerDateAll" parameterType="com.zking.pojo.zlgl.x_customer" resultMap="FindCustomerDateAll">
+SELECT c.Cid,c.CName,c.CustSeat,cm.CustId,cm.CustName,cm.Prov,cm.Dist,cm.Coun,cm.CustAddress FROM x_customer c
+INNER JOIN x_customermessage cm
+ON c.CustId=cm.CustId
+WHERE c.CustSeat=#{CustSeat}
+    </select>
+
+
 </mapper>

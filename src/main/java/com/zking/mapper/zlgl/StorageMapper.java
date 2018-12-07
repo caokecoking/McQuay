@@ -1,5 +1,6 @@
 package com.zking.mapper.zlgl;
 
+import com.zking.pojo.xtgl.Company;
 import com.zking.pojo.zlgl.x_storage;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,6 @@ public interface StorageMapper {
     public int FindStorageEdit(x_storage storage);
 
     public int FindStorageAdd(x_storage storage);
+
+    public Company FindCompanysel(Company company);
 }

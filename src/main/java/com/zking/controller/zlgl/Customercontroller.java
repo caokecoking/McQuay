@@ -39,12 +39,9 @@ public class Customercontroller {
         customer.setLimit(l);
         Map map = new HashMap();
         List<x_customer> listUsers = ics.FindAll(customer);
-//        ObjectMapper objectMapper = new ObjectMapper();
         map.put("count", ics.FindCount(customer));
         map.put("data", listUsers);
         map.put("code", 0);
-//        String outstr = objectMapper.writeValueAsString(map);
-//        System.out.println(outstr);
         return map;
     }
 
@@ -87,5 +84,23 @@ public class Customercontroller {
             return index;
         }
         return 0;
+    }
+
+    @RequestMapping(value = "FindCustomerDate")
+    @ResponseBody
+    public Map FindCustomerDate() {
+        List<x_customer> c = ics.FindCustomerDate();
+        Map map = new HashMap();
+        map.put("c", c);
+        return map;
+    }
+
+    @RequestMapping(value = "FindCustomerDateAll")
+    @ResponseBody
+    public Map FindCustomerDateAll(x_customer customer) {
+        x_customer c = ics.FindCustomerDateAll(customer);
+        Map map = new HashMap();
+        map.put("c", c);
+        return map;
     }
 }

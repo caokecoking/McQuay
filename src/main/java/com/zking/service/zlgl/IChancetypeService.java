@@ -16,4 +16,6 @@ public interface IChancetypeService {
     public x_chancetype FindChancetypeDateBind(x_chancetype chancetype);
 
     public int FindChancetypeEdit(x_chancetype chancetype);
+
+    public List<x_chancetype> FindChancetypeListDate();
 }

@@ -43,4 +43,9 @@ public class ChancetypeServiceImpl implements IChancetypeService {
     public int FindChancetypeEdit(x_chancetype chancetype) {
         return cm.FindChancetypeEdit(chancetype);
     }
+
+    @Override
+    public List<x_chancetype> FindChancetypeListDate() {
+        return cm.FindChancetypeListDate();
+    }
 }

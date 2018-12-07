@@ -48,4 +48,14 @@ public class CustomermessageServiceImpl implements ICustomermessageService {
     public x_customermessage FindCustomermessageDateBind(x_customermessage customermessage) {
         return cm.FindCustomermessageDateBind(customermessage);
     }
+
+    @Override
+    public List<x_customermessage> FindCustomermessageDateAll() {
+        return cm.FindCustomermessageDateAll();
+    }
+
+    @Override
+    public x_customermessage FindCustomermessagesDate(x_customermessage customermessage) {
+        return cm.FindCustomermessagesDate(customermessage);
+    }
 }

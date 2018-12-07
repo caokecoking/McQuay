@@ -1,6 +1,7 @@
 package com.zking.service.zlgl.impl;
 
 import com.zking.mapper.zlgl.StorageMapper;
+import com.zking.pojo.xtgl.Company;
 import com.zking.pojo.zlgl.x_storage;
 import com.zking.service.zlgl.IStorageService;
 import org.springframework.stereotype.Repository;
@@ -41,5 +42,10 @@ public class StorageServiceImpl implements IStorageService {
     @Override
     public int FindStorageAdd(x_storage storage) {
         return sm.FindStorageAdd(storage);
+    }
+
+    @Override
+    public Company FindCompanysel(Company company) {
+        return sm.FindCompanysel(company);
     }
 }

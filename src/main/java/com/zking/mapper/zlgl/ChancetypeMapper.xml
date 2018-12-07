@@ -85,4 +85,8 @@
      UPDATE x_chancetype SET CtName=#{CtName},PtId=#{PtId},Compid=#{Compid},CtUnit=#{CtUnit},CtUnitprice=#{CtUnitprice},CtDescribe=#{CtDescribe} WHERE CtId=#{CtId}
    </update>
 
+    <select id="FindChancetypeListDate" resultType="com.zking.pojo.zlgl.x_chancetype"
+            parameterType="com.zking.pojo.zlgl.x_chancetype">
+        SELECT  * FROM  x_chancetype
+    </select>
 </mapper>

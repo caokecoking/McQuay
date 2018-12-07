@@ -16,4 +16,8 @@ public interface ICustomerService {
     public x_customer FindcustomerDate(x_customer c);
 
     public int Findx_customerEdit(x_customer c);
+
+    public List<x_customer> FindCustomerDate();
+
+    public x_customer FindCustomerDateAll(x_customer customer);
 }

@@ -2,55 +2,52 @@ package com.zking.service.impl.fwgl;
 
 import com.zking.mapper.fwgl.IServiceHandlingMapper;
 import com.zking.pojo.fwgl.ServiceHandling;
+import com.zking.pojo.fwgl.ServicePlan;
+import com.zking.pojo.xtgl.Personnel;
 import com.zking.service.fwgl.IServiceHandlingService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 
-@Service("ServiceHandlingServiceImpl")
-public class ServiceHandlingServiceImpl implements IServiceHandlingService{
-
-    @Autowired
+@Repository("IServiceHandlingServiceImpl")
+public class ServiceHandlingServiceImpl implements IServiceHandlingService {
+    @Resource(name = "IServiceHandlingMapper")
     private IServiceHandlingMapper ism;
 
+
     @Override
-    public List<ServiceHandling> findAll(ServiceHandling serviceHandling) {
-        return ism.findAll(serviceHandling);
+    public List<ServiceHandling> FindServiceHandlingAll(ServiceHandling handling) {
+        return ism.FindServiceHandlingAll(handling);
     }
 
     @Override
-    public int getMax(ServiceHandling serviceHandling) {
-        return ism.getMax(serviceHandling);
+    public int FindServiceHandlingCount(ServiceHandling handling) {
+        return ism.FindServiceHandlingCount(handling);
     }
 
     @Override
-    public ServiceHandling findonly(String ShId) {
-        return ism.findonly(ShId);
+    public int FindServiceHandlingAdd(ServiceHandling handling) {
+        return ism.FindServiceHandlingAdd(handling);
     }
 
     @Override
-    public int add(ServiceHandling ServiceHandling) {
-        return ism.add(ServiceHandling);
+    public int FindServiceHandlingRemove(ServiceHandling handling) {
+        return ism.FindServiceHandlingRemove(handling);
     }
 
     @Override
-    public int edit(ServiceHandling ServiceHandling) {
-        return ism.edit(ServiceHandling);
+    public ServiceHandling FindServiceHandlingDate(ServiceHandling handling) {
+        return ism.FindServiceHandlingDate(handling);
     }
 
     @Override
-    public int remove(ServiceHandling ServiceHandling) {
-        return ism.remove(ServiceHandling);
+    public int FindServiceHandlingEdit(ServiceHandling handling) {
+        return ism.FindServiceHandlingEdit(handling);
     }
 
     @Override
-    public String getEnd() {
-        return ism.getEnd();
-    }
-
-    @Override
-    public List<ServiceHandling> findByListId(String ListId) {
-        return ism.findByListId(ListId);
+    public List<Personnel> FindPersonnelDate() {
+        return ism.FindPersonnelDate();
     }
 }

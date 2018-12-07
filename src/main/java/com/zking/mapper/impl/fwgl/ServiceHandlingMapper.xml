@@ -3,69 +3,80 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zking.mapper.fwgl.IServiceHandlingMapper">
-    <select id="findAll" resultType="ServiceHandling" parameterType="ServiceHandling">
-         select * from  ServiceHandling
-         <where>
-             <if test="Dispatch!=null">
-                 and Dispatch = #{Dispatch}
-             </if>
-             <if test="StDescribe!=null">
-                 and StDescribe =#{StDescribe}
-             </if>
-             <if test="CustId!=null">
-                 and CustId =#{CustId}
-             </if>
-             <if test="CustAddress!=null">
-                 and CustId =( select CustId from x_customermessage where CustAddress like '%${Other%}%')
-             </if>
-             <if test="startTime!=null">
-                 and AcceptDate > #{startTime}
-             </if>
-             <if test="endTime!=null">
-                 and AcceptDate > #{endTime}
-             </if>
-         </where>
+    <select id="FindServiceHandlingAll" parameterType="com.zking.pojo.fwgl.ServiceHandling"
+            resultType="com.zking.pojo.fwgl.ServiceHandling">
+        SELECT * FROM ServiceHandling
+        <where>
+            <if test="state!=null and state !=''">
+                AND state=#{state}
+            </if>
+            <if test="HandlingType!=null and HandlingType!=''">
+                AND HandlingType=#{HandlingType}
+            </if>
+            <if test="CustId!=null and CustId!=''">
+                AND CustId =#{CustId}
+            </if>
+            <if test="CustAddress!=null and CustAddress!=''">
+                AND CustAddress LIKE '%${CustName}%'
+            </if>
+        </where>
         limit #{page},#{limit}
     </select>
-    <select id="getMax" resultType="ServiceHandling" parameterType="java.lang.Integer">
-        select count(ShId) FROM  ServiceHandling
+
+    <select id="FindServiceHandlingCount" parameterType="com.zking.pojo.fwgl.ServiceHandling"
+            resultType="java.lang.Integer">
+        SELECT count(ShId) FROM ServiceHandling
         <where>
-            <if test="Dispatch!=null">
-                and Dispatch = #{Dispatch}
+            <if test="state!=null and state !=''">
+                AND state=#{state}
             </if>
-            <if test="StDescribe!=null">
-                and StDescribe =#{StDescribe}
+            <if test="HandlingType!=null and HandlingType!=''">
+                AND HandlingType=#{HandlingType}
             </if>
-            <if test="CustId!=null">
-                and CustId =#{CustId}
+            <if test="CustId!=null and CustId!=''">
+                AND CustId =#{CustId}
             </if>
-            <if test="CustAddress!=null">
-                and CustId =( select CustId from x_customermessage where CustAddress like '%${Other}%')
-            </if>
-            <if test="startTime!=null">
-                and AcceptDate > #{startTime}
-            </if>
-            <if test="endTime!=null">
-                and AcceptDate > #{endTime}
+            <if test="CustAddress!=null and CustAddress!=''">
+                AND CustAddress LIKE '%${CustName}%'
             </if>
         </where>
     </select>
-    <select id="findonly" resultType="ServiceHandling" parameterType="java.lang.String">
-        select * from servicehandling where ShId=#{ShId}
-    </select>
-    <insert id="add" parameterType="ServiceHandling">
 
+    <insert id="FindServiceHandlingAdd" parameterType="com.zking.pojo.fwgl.ServiceHandling">
+ INSERT INTO ServiceHandling(
+  ShId, CustId,CustName,CName,CustSeat, Prov,Dist,Coun,CustAddress,Dealer,HandlingID,Ordering,AppointmentTime,PtDescribe,DateOfPurchase,
+  HandlingType,HandlingDescribe,YesNo,DateOfSupervisor, Cause,state)
+VALUES
+  (UUID(), #{CustId},#{CustName},#{CName}, #{CustSeat},#{Prov},#{Dist},#{Coun},#{CustAddress},#{Dealer},#{HandlingID}, #{Ordering},
+  #{AppointmentTime},#{PtDescribe},#{DateOfPurchase},#{HandlingType}, #{HandlingDescribe},#{YesNo},#{DateOfSupervisor},#{Cause},#{state})
     </insert>
-    <update id="edit" parameterType="ServiceHandling">
 
+    <update id="FindServiceHandlingEdit" parameterType="com.zking.pojo.fwgl.ServiceHandling">
+        UPDATE Servicehandling
+ SET  CustId = #{CustId}, CustName = #{CustName},CName = #{CName},CustSeat = #{CustSeat},Prov = #{Prov},Dist = #{Dist},Coun = #{Coun},
+ CustAddress = #{CustAddress},Dealer = #{Dealer},HandlingID = #{HandlingID},Ordering = #{Ordering},AppointmentTime = #{AppointmentTime},
+ PtDescribe = #{PtDescribe},DateOfPurchase = #{DateOfPurchase},HandlingType = #{HandlingType},HandlingDescribe = #{HandlingDescribe},
+ YesNo = #{YesNo},DateOfSupervisor = #{DateOfSupervisor},Cause = #{Cause},state=#{state} where ShId = #{ShId}
     </update>
-    <delete id="remove" parameterType="ServiceHandling">
 
+    <select id="FindServiceHandlingDate" resultType="com.zking.pojo.fwgl.ServiceHandling"
+            parameterType="com.zking.pojo.fwgl.ServiceHandling">
+        SELECT * FROM ServiceHandling WHERE ShId = #{ShId}
+    </select>
+
+    <delete id="FindServiceHandlingRemove" parameterType="com.zking.pojo.fwgl.ServiceHandling">
+        DELETE FROM ServiceHandling WHERE ShId = #{ShId}
     </delete>
-    <select id="getEnd" >
-        SELECT MAX(SUBSTR(ShId, -4))+1 FROM ServiceHandling
+
+
+    <select id="FindPersonnelDate" resultType="com.zking.pojo.xtgl.Personnel"
+            parameterType="com.zking.pojo.xtgl.Personnel">
+SELECT PersName FROM personnel p
+INNER JOIN personneljop pj
+ON p.PersId=pj.Persid
+INNER JOIN jop j
+ON pj.JopId=j.JopId
+WHERE j.JopId='bacea79f-d70f-11e8-868c-54ee75bbb0cd'
     </select>
-    <select id="findByListId" parameterType="ServiceHandling" resultType="java.lang.String">
-        select * from ServiceHandling where ShId in (#{ListId})
-    </select>
+
 </mapper>

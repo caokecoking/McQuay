@@ -15,6 +15,33 @@ public class x_customermessage extends BasePojo {
     private String Compid;
     private String EDI_DateTime;
     private Company Company;
+    private x_customer x_customer;
+    private String ShId;
+    private String SpId;
+
+    public String getShId() {
+        return ShId;
+    }
+
+    public String getSpId() {
+        return SpId;
+    }
+
+    public void setShId(String shId) {
+        ShId = shId;
+    }
+
+    public void setSpId(String spId) {
+        SpId = spId;
+    }
+
+    public com.zking.pojo.zlgl.x_customer getX_customer() {
+        return x_customer;
+    }
+
+    public void setX_customer(com.zking.pojo.zlgl.x_customer x_customer) {
+        this.x_customer = x_customer;
+    }
 
     public com.zking.pojo.xtgl.Company getCompany() {
         return Company;

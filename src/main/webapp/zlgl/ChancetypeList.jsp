@@ -166,7 +166,7 @@
                         type: 2,
                         content: 'http://localhost:8080/zlgl/ChancetypeAdd.jsp' //这里content是一个普通的String
                         , offset: 'auto',
-                        area:  ['700px', '600px']
+                        area: ['700px', '600px']
                     });
                     break;
                 case 'update':

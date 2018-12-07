@@ -71,4 +71,30 @@
             parameterType="com.zking.pojo.zlgl.x_customermessage">
     SELECT  * FROM x_customermessage WHERE CustId=#{CustId}
     </select>
+
+    <select id="FindCustomermessageDateAll" parameterType="com.zking.pojo.zlgl.x_customermessage"
+            resultType="com.zking.pojo.zlgl.x_customermessage">
+SELECT  * FROM  x_customermessage
+    </select>
+
+    <resultMap id="FindCustomermessagesDate" type="com.zking.pojo.zlgl.x_customermessage">
+        <id property="CustId" column="CustId"></id>
+        <result property="CustName" column="CustName"></result>
+        <result property="CustAddress" column="CustAddress"></result>
+        <association property="x_customer" javaType="x_customer">
+            <id property="Cid" column="Cid"></id>
+            <result property="CName" column="CName"></result>
+            <result property="CustSeat" column="CustSeat"></result>
+        </association>
+    </resultMap>
+
+    <select id="FindCustomermessagesDate" resultMap="FindCustomermessagesDate"
+            parameterType="com.zking.pojo.zlgl.x_customermessage">
+SELECT cm.CustId,cm.CustName,cm.CustAddress,c.Cid,c.CName,c.CustSeat FROM x_customermessage cm
+INNER JOIN x_customer c
+ON cm.CustId=c.CustId
+WHERE cm.CustId=#{CustId}
+    </select>
+
+
 </mapper>

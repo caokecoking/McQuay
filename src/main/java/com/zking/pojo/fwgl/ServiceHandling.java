@@ -3,193 +3,242 @@ package com.zking.pojo.fwgl;
 import com.zking.pojo.BasePojo;
 import com.zking.pojo.xtgl.Personnel;
 
-public class ServiceHandling extends BasePojo{
-	private String ShId;
+public class ServiceHandling extends BasePojo {
+    private String ShId; //ID
 
-	private String ShPhone;
+    private String CustId; //客户编号
 
-	public Personnel p;
+    private String CustName; //客户名称
 
-//	public x_customermessage c;
+    private String CName;
 
-	private String AppointmentTime;
+    private String CustSeat; //联系人电话
 
-	private String AcceptDate;
+    private String Prov;//省
 
-	private String PtDescribe;
+    private String Dist;// 市
 
-	private String StDescribe;
+    private String Coun;//区
 
-	private String PurchaseDate;
+    private String CustAddress;// 客户地址
 
-	private String AcceptDescription ;
+    private String Dealer; //经销商
 
-	private String ChargeType;
+    private String HandlingID; //受理单号
 
-	private String DoorFee;
+    private String Ordering; //接单员
 
-	private String Dispatch;
+    private String AppointmentTime;  //预约时间
 
-	private String CounselContent;
+    private String PtDescribe; //产品类型
 
-	private String SendCharge;
+    private String DateOfPurchase; //购买日期
 
-	private String Other;
+    private String HandlingType;   //受理类型
 
-	public ServiceHandling() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    private String HandlingDescribe; //受理描述
 
-	public ServiceHandling(String shId, String shPhone, Personnel p, String appointmentTime,
-			String acceptDate, String ptDescribe, String stDescribe, String purchaseDate, String acceptDescription,
-			String chargeType, String doorFee, String dispatch, String counselContent, String sendCharge,
-			String other) {
-		super();
-		ShId = shId;
-		ShPhone = shPhone;
-		this.p = p;
-//		this.c = c;
-		AppointmentTime = appointmentTime;
-		AcceptDate = acceptDate;
-		PtDescribe = ptDescribe;
-		StDescribe = stDescribe;
-		PurchaseDate = purchaseDate;
-		AcceptDescription = acceptDescription;
-		ChargeType = chargeType;
-		DoorFee = doorFee;
-		Dispatch = dispatch;
-		CounselContent = counselContent;
-		SendCharge = sendCharge;
-		Other = other;
-	}
+    private String YesNo; //是否派工
 
-	public String getShId() {
-		return ShId;
-	}
+    private String DateOfSupervisor;//派单主管
 
-	public void setShId(String shId) {
-		ShId = shId;
-	}
+    private String Cause; //不派工原因
 
-	public String getShPhone() {
-		return ShPhone;
-	}
+    private String state; //服务状态
 
-	public void setShPhone(String shPhone) {
-		ShPhone = shPhone;
-	}
 
-	public Personnel getP() {
-		return p;
-	}
+    public ServiceHandling() {
+    }
 
-	public void setP(Personnel p) {
-		this.p = p;
-	}
+    public ServiceHandling(String shId, String custId, String custName, String CName, String custSeat, String prov, String dist, String coun, String custAddress, String dealer, String handlingID, String ordering, String appointmentTime, String ptDescribe, String dateOfPurchase, String handlingType, String handlingDescribe, String yesNo, String dateOfSupervisor, String cause, String state) {
+        ShId = shId;
+        CustId = custId;
+        CustName = custName;
+        this.CName = CName;
+        CustSeat = custSeat;
+        Prov = prov;
+        Dist = dist;
+        Coun = coun;
+        CustAddress = custAddress;
+        Dealer = dealer;
+        HandlingID = handlingID;
+        Ordering = ordering;
+        AppointmentTime = appointmentTime;
+        PtDescribe = ptDescribe;
+        DateOfPurchase = dateOfPurchase;
+        HandlingType = handlingType;
+        HandlingDescribe = handlingDescribe;
+        YesNo = yesNo;
+        DateOfSupervisor = dateOfSupervisor;
+        Cause = cause;
+        this.state = state;
+    }
 
-//	public x_customermessage getC() {
-//		return c;
-//	}
-//
-//	public void setC(x_customermessage c) {
-//		this.c = c;
-//	}
+    public String getShId() {
+        return ShId;
+    }
 
-	public String getAppointmentTime() {
-		return AppointmentTime;
-	}
+    public void setShId(String shId) {
+        ShId = shId;
+    }
 
-	public void setAppointmentTime(String appointmentTime) {
-		AppointmentTime = appointmentTime;
-	}
+    public String getCustId() {
+        return CustId;
+    }
 
-	public String getAcceptDate() {
-		return AcceptDate;
-	}
+    public void setCustId(String custId) {
+        CustId = custId;
+    }
 
-	public void setAcceptDate(String acceptDate) {
-		AcceptDate = acceptDate;
-	}
+    public String getCustName() {
+        return CustName;
+    }
 
-	public String getPtDescribe() {
-		return PtDescribe;
-	}
+    public void setCustName(String custName) {
+        CustName = custName;
+    }
 
-	public void setPtDescribe(String ptDescribe) {
-		PtDescribe = ptDescribe;
-	}
+    public String getCName() {
+        return CName;
+    }
 
-	public String getStDescribe() {
-		return StDescribe;
-	}
+    public void setCName(String CName) {
+        this.CName = CName;
+    }
 
-	public void setStDescribe(String stDescribe) {
-		StDescribe = stDescribe;
-	}
+    public String getCustSeat() {
+        return CustSeat;
+    }
 
-	public String getPurchaseDate() {
-		return PurchaseDate;
-	}
+    public void setCustSeat(String custSeat) {
+        CustSeat = custSeat;
+    }
 
-	public void setPurchaseDate(String purchaseDate) {
-		PurchaseDate = purchaseDate;
-	}
+    public String getProv() {
+        return Prov;
+    }
 
-	public String getAcceptDescription() {
-		return AcceptDescription;
-	}
+    public void setProv(String prov) {
+        Prov = prov;
+    }
 
-	public void setAcceptDescription(String acceptDescription) {
-		AcceptDescription = acceptDescription;
-	}
+    public String getDist() {
+        return Dist;
+    }
 
-	public String getChargeType() {
-		return ChargeType;
-	}
+    public void setDist(String dist) {
+        Dist = dist;
+    }
 
-	public void setChargeType(String chargeType) {
-		ChargeType = chargeType;
-	}
+    public String getCoun() {
+        return Coun;
+    }
 
-	public String getDoorFee() {
-		return DoorFee;
-	}
+    public void setCoun(String coun) {
+        Coun = coun;
+    }
 
-	public void setDoorFee(String doorFee) {
-		DoorFee = doorFee;
-	}
+    public String getCustAddress() {
+        return CustAddress;
+    }
 
-	public String getDispatch() {
-		return Dispatch;
-	}
+    public void setCustAddress(String custAddress) {
+        CustAddress = custAddress;
+    }
 
-	public void setDispatch(String dispatch) {
-		Dispatch = dispatch;
-	}
+    public String getDealer() {
+        return Dealer;
+    }
 
-	public String getCounselContent() {
-		return CounselContent;
-	}
+    public void setDealer(String dealer) {
+        Dealer = dealer;
+    }
 
-	public void setCounselContent(String counselContent) {
-		CounselContent = counselContent;
-	}
+    public String getHandlingID() {
+        return HandlingID;
+    }
 
-	public String getSendCharge() {
-		return SendCharge;
-	}
+    public void setHandlingID(String handlingID) {
+        HandlingID = handlingID;
+    }
 
-	public void setSendCharge(String sendCharge) {
-		SendCharge = sendCharge;
-	}
+    public String getOrdering() {
+        return Ordering;
+    }
 
-	public String getOther() {
-		return Other;
-	}
+    public void setOrdering(String ordering) {
+        Ordering = ordering;
+    }
 
-	public void setOther(String other) {
-		Other = other;
-	}
-	
+    public String getAppointmentTime() {
+        return AppointmentTime;
+    }
+
+    public void setAppointmentTime(String appointmentTime) {
+        AppointmentTime = appointmentTime;
+    }
+
+    public String getPtDescribe() {
+        return PtDescribe;
+    }
+
+    public void setPtDescribe(String ptDescribe) {
+        PtDescribe = ptDescribe;
+    }
+
+    public String getDateOfPurchase() {
+        return DateOfPurchase;
+    }
+
+    public void setDateOfPurchase(String dateOfPurchase) {
+        DateOfPurchase = dateOfPurchase;
+    }
+
+    public String getHandlingType() {
+        return HandlingType;
+    }
+
+    public void setHandlingType(String handlingType) {
+        HandlingType = handlingType;
+    }
+
+    public String getHandlingDescribe() {
+        return HandlingDescribe;
+    }
+
+    public void setHandlingDescribe(String handlingDescribe) {
+        HandlingDescribe = handlingDescribe;
+    }
+
+    public String getYesNo() {
+        return YesNo;
+    }
+
+    public void setYesNo(String yesNo) {
+        YesNo = yesNo;
+    }
+
+    public String getDateOfSupervisor() {
+        return DateOfSupervisor;
+    }
+
+    public void setDateOfSupervisor(String dateOfSupervisor) {
+        DateOfSupervisor = dateOfSupervisor;
+    }
+
+    public String getCause() {
+        return Cause;
+    }
+
+    public void setCause(String cause) {
+        Cause = cause;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }

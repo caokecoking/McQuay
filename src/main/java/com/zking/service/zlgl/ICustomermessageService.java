@@ -18,4 +18,8 @@ public interface ICustomermessageService {
     public int FindCustomermessagereomve(x_customermessage customermessage);
 
     public x_customermessage FindCustomermessageDateBind(x_customermessage customermessage);
+
+    public List<x_customermessage> FindCustomermessageDateAll();
+
+    public x_customermessage FindCustomermessagesDate(x_customermessage customermessage);
 }

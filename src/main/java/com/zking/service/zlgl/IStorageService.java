@@ -1,5 +1,6 @@
 package com.zking.service.zlgl;
 
+import com.zking.pojo.xtgl.Company;
 import com.zking.pojo.zlgl.x_storage;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface IStorageService {
     public int FindStorageEdit(x_storage storage);
 
     public int FindStorageAdd(x_storage storage);
+
+    public Company FindCompanysel(Company company);
 }

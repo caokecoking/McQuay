@@ -6,7 +6,7 @@
 
     <select id="FindStorageAll" resultType="com.zking.pojo.zlgl.x_storage"
             parameterType="com.zking.pojo.zlgl.x_storage">
-        SELECT StorID,StorName,CompId,CompName FROM x_storage
+        SELECT StorId,StorName,CompId,CompName FROM x_storage
         <where>
             <if test="StorName!=null">
                 AND StorName LIKE '${StorName}'
@@ -15,8 +15,8 @@
         LIMIT #{page},#{limit}
     </select>
 
-    <select id="FindStorageCount" resultType="java.lang.String" parameterType="com.zking.pojo.zlgl.x_storage">
-        SELECT count(StorID) FROM x_storage
+    <select id="FindStorageCount" resultType="java.lang.Integer" parameterType="com.zking.pojo.zlgl.x_storage">
+        SELECT count(StorId) FROM x_storage
         <where>
             <if test="StorName!=null">
                 AND StorName LIKE '${StorName}'
@@ -29,15 +29,20 @@ INSERT INTO x_storage VALUE(UUID(),#{StorName},#{CompId},#{CompName})
     </insert>
 
     <update id="FindStorageEdit" parameterType="com.zking.pojo.zlgl.x_storage">
-UPDATE x_storage SET StorName=#{StorName},CompId=${CompId},CompName=#{CompName} WHERE  StorID=#{StorID}
+UPDATE x_storage SET StorName=#{StorName},CompId=#{CompId},CompName=#{CompName} WHERE  StorId=#{StorId}
     </update>
 
     <delete id="FindStorageRemove" parameterType="com.zking.pojo.zlgl.x_storage">
-DELETE FROM x_storage FROM StorId=#{StorId}
+DELETE FROM x_storage WHERE StorId=#{StorId}
     </delete>
 
     <select id="FindStorageDate" resultType="com.zking.pojo.zlgl.x_storage"
             parameterType="com.zking.pojo.zlgl.x_storage">
-SELECT StorID,StorName,CompId,CompName FROM x_storage WHERE StorID =#{StorID}
+SELECT StorId,StorName,CompId,CompName FROM x_storage WHERE StorId =#{StorId}
+    </select>
+
+
+    <select id="FindCompanysel" resultType="com.zking.pojo.xtgl.Company" parameterType="com.zking.pojo.xtgl.Company">
+SELECT  * FROM  Company WHERE Compid =#{Compid}
     </select>
 </mapper>
