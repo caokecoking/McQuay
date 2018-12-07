@@ -5,6 +5,9 @@ import com.zking.pojo.xtgl.Department;
 import com.zking.pojo.xtgl.Jop;
 import com.zking.pojo.xtgl.Personnel;
 import com.zking.service.xtgl.IPersonnelService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,16 @@ public class PersonnelController {
 
     @Autowired
     private IPersonnelService ips;
+
+    @ResponseBody
+    @RequestMapping(value = "login")
+    public int login(Personnel personnel){
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(personnel.getPersCoding(),personnel.getPersPassword());
+        subject.login(usernamePasswordToken);
+        System.out.println(subject.isAuthenticated());
+        return 1;
+    }
 
     @ResponseBody
     @RequestMapping("findAll")

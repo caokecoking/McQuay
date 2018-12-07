@@ -75,10 +75,10 @@ $(function () {
         },
         dataType: "json",
         success: function (data) {
-            $('#MenuId').val(data.Menu[0].MenuId);
-            $('#MenuName').val(data.Menu[0].MenuName);
-            $('#MenuPath').val(data.Menu[0].MenuPath);
-            $('#MenuParent').val(data.Menu[0].MenuParent);
+            $('#MenuId').val(data.Menu.MenuId);
+            $('#MenuName').val(data.Menu.MenuName);
+            $('#MenuPath').val(data.Menu.MenuPath);
+            $('#MenuParent').val(data.Menu.MenuParent);
             layui.form.render('select');
         }
     });
@@ -99,9 +99,21 @@ layui.use('form', function () {
             },
             dataType: "text",
             success: function (data) {
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.layer.close(index);
-                parent.location.reload();
+                if(data==0){
+                    layer.open({
+                        title: '提示信息'
+                        ,content: '父菜单不可改为子菜单'
+                    });
+                }else if(data==1){
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                    parent.location.reload();
+                }else if(data==2){
+                    layer.open({
+                        title: '提示信息'
+                        ,content: '子菜单不可改为父菜单'
+                    });
+                }
             }
         });
     });

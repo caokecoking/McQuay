@@ -109,8 +109,8 @@
     <delete id="removepersonneljop" parameterType="Personnel">
         delete from personneljop where PersId=#{PersId};
     </delete>
-    <select id="FindPersonnelLoGin" resultType="Personnel" parameterType="Personnel">
-        select * from Personnel where PersCoding=#{PersCoding} And PersPassword=#{PersPassword}
+    <select id="FindPersonnelLoGin" resultType="java.lang.String" parameterType="java.lang.String">
+        select PersPassword from Personnel where PersCoding=#{Personnel}
     </select>
     <insert id="addPersonnelCompany" parameterType="Personnel">
         insert into personnelcompany(PersId,Compid) values((SELECT PersId FROM personnel ORDER BY hiredate DESC LIMIT 0,1),#{name})

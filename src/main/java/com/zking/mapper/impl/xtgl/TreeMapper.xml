@@ -5,6 +5,7 @@
 <mapper namespace="com.zking.mapper.xtgl.ITreeMapper">
     <resultMap type="Tree" id="findParentMenuTreeMap">
         <id column="MenuId" property="id"/>
+        <result column="MenuId" property="value"/>
         <result column="MenuName" property="name"/>
         <result column="MenuParent" property="mparent"/>
         <result column="MenuPath" property="mpath"/>
@@ -15,18 +16,47 @@
                     select="com.zking.mapper.xtgl.ITreeMapper.findSonMenuTreeByMCode"/>
     </resultMap>
     <select id="findMenuTree" resultMap="findParentMenuTreeMap">
-       select * FROM Menu WHERE MenuParent IS NULL
+       select * FROM Menu WHERE MenuParent='-1'
     </select>
 
     <resultMap type="Tree" id="findSonMenuTreeByMCodeMap">
         <id column="MenuId" property="id"/>
+        <result column="MenuId" property="value"/>
         <result column="MenuName" property="name"/>
         <result column="MenuParent" property="mparent"/>
         <result column="MenuPath" property="mpath"/>
         <result column="pid" property="parentId"/>
+        <collection column="MenuId" property="list"
+                    select="com.zking.mapper.xtgl.ITreeMapper.findSonMenuButtonByMenuId"/>
     </resultMap>
     <select id="findSonMenuTreeByMCode" resultMap="findSonMenuTreeByMCodeMap" parameterType="java.lang.String">
        SELECT * FROM menu where MenuParent=#{MenuId}
     </select>
+    <insert id="addMenuByJop" parameterType="jopmenu">
+        INSERT INTO jopmenu (jobid, menuid) VALUES (#{jobid},#{MenuId})
+    </insert>
+    <delete id="removeMenuByJop" parameterType="jopmenu">
+        DELETE  FROM jopmenu WHERE MenuId=#{MenuId} and jobid=#{jobid}
+    </delete>
 
+    <select id="findSonMenuButtonByMenuId" resultType="Tree" parameterType="java.lang.String">
+        select b.bid id,b.bid as value,b.bname as Name,m.MenuId AS mparent,permission as mpath from buttons b
+        inner join MenuButtons mb
+        on b.bid=mb.bid
+        inner join Menu m
+        on mb.MenuId=m.MenuId where m.MenuId=#{a}
+    </select>
+
+    <insert id="addJopButtons" parameterType="JopButtons">
+        INSERT INTO JopButton (jobid, bid) VALUES (#{jobid},#{bid})
+    </insert>
+    <delete id="removeJopButtons" parameterType="JopButtons">
+        DELETE  FROM jopbutton WHERE bid=#{bid} and jobid=#{jobid}
+    </delete>
+    <select id="findOnly" resultType="Menu" parameterType="Menu">
+        select * from menu where MenuId=#{MenuId}
+    </select>
+    <select id="findButtonsAll" resultType="Buttons" parameterType="Jop">
+        select * from Buttons where bid in (select bid from JopButton where jobId=#{jopId})
+    </select>
 </mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+    <bean id="shiroRealm" class="com.zking.shiro.ShiroRealm"></bean>
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="shiroRealm"></property>
+    </bean>
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <property name="loginUrl" value="/login.jsp"></property>
+        <property name="successUrl" value="/index.jsp"></property>
+        <property name="unauthorizedUrl" value="/login.jsp"></property>
+        <property name="filterChainDefinitions">
+            <value>
+                /login.jsp*=anon
+                /xtgl/*=authc
+                /fwgl/*=authc
+                /zlgl/*=authc
+                /kqgl/*=authc
+                /pjgl/*=authc
+                /xtgl/*=roles[admin]
+                /fwgl/*=roles[admin]
+                /zlgl/*=roles[admin]
+                /kqgl/*=roles[admin]
+                /pjgl/*=roles[admin]
+                /extends/*=anon
+            </value>
+        </property>
+    </bean>
+</beans>

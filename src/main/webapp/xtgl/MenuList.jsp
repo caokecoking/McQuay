@@ -24,6 +24,7 @@
         <button class="layui-btn" id="btn-fold">全部折叠</button>
         <button class="layui-btn" id="btn-refresh">刷新表格</button>
         <button class="layui-btn" id="addMenu">增加菜单</button>
+        <button class="layui-btn" id="addButtons">增加按钮</button>
     </div>
     <div class="layui-inline">
         <input name="id" class="layui-input" placeholder="菜单名称" id="MenuName" type="text">
@@ -59,7 +60,7 @@
                 treeIdName: 'id',
                 treePidName: 'mparent',
                 elem: '#table1',
-                url: '/Menu/findMenuTree.action',
+                url: '/Menu/findMenuTree1.action',
                 page: false,
                 cols: [[
                     {type: 'numbers'},
@@ -93,6 +94,14 @@
                 title: '增加菜单',
                 type : 2,
                 content: 'MenuAdd.jsp', //数组第二项即吸附元素选择器或者DOM
+                area :['600px','300px']
+            });
+        });
+        $('#addButtons').click(function () {
+            layer.open({
+                title: '增加按钮',
+                type : 2,
+                content: 'ButtonAdd.jsp', //数组第二项即吸附元素选择器或者DOM
                 area :['600px','300px']
             });
         });
@@ -136,11 +145,30 @@
                     }
                 });
             } else if (layEvent === 'edit') {
-                layer.open({
-                    title: '修改菜单',
-                    type : 2,
-                    content: 'MenuEdit.jsp?MenuId='+data.id, //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','300px']
+                $.ajax({
+                    type: "POST",
+                    url: "/Menu/pdMenuButton.action",
+                    data: {
+                        id: data.id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.int=="0"){
+                            layer.open({
+                                title: '修改菜单',
+                                type : 2,
+                                content: 'MenuEdit.jsp?MenuId='+data.a, //数组第二项即吸附元素选择器或者DOM
+                                area :['600px','300px']
+                            });
+                        }else{
+                            layer.open({
+                                title: '修改按钮',
+                                type : 2,
+                                content: 'ButtonEdit.jsp?bid='+data.a, //数组第二项即吸附元素选择器或者DOM
+                                area :['600px','300px']
+                            });
+                        }
+                    }
                 });
             }
         });

@@ -10,6 +10,7 @@ public class Tree  extends BasePojo {
 	 * 节点id
 	 */
 	private String id;
+	private String value;
 	/**
 	 * 显示节点文本(也就是名字)
 	 */
@@ -32,20 +33,24 @@ public class Tree  extends BasePojo {
 	 * 被添加到节点的自定义属性
 	 */
 	private String attributes;
+
+	private String menuId;
 	/**
 	 * 一个节点数组声明了若干节点
 	 */
 	private List<Menu> children;
-    private List<Menu> list;
+    private List<Tree> list;
 
 	public Tree() {
 	}
 
-	public Tree(String id, String name, String mparent, String mpath, String state, boolean checked, String attributes, List<Menu> children, List<Menu> list) {
+	public Tree(String id, String value, String name, String mparent, String mpath, String parentId, String state, boolean checked, String attributes, List<Menu> children, List<Tree> list) {
 		this.id = id;
+		this.value = value;
 		Name = name;
 		this.mparent = mparent;
 		this.mpath = mpath;
+		this.parentId = parentId;
 		this.state = state;
 		this.checked = checked;
 		this.attributes = attributes;
@@ -57,8 +62,24 @@ public class Tree  extends BasePojo {
 		return id;
 	}
 
+	public String getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(String menuId) {
+		this.menuId = menuId;
+	}
+
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	@Override
@@ -85,6 +106,14 @@ public class Tree  extends BasePojo {
 
 	public void setMpath(String mpath) {
 		this.mpath = mpath;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
 	public String getState() {
@@ -119,19 +148,11 @@ public class Tree  extends BasePojo {
 		this.children = children;
 	}
 
-	public List<Menu> getList() {
+	public List<Tree> getList() {
 		return list;
 	}
 
-	public void setList(List<Menu> list) {
+	public void setList(List<Tree> list) {
 		this.list = list;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 }

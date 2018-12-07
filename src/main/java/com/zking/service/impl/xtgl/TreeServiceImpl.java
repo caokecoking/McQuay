@@ -1,7 +1,7 @@
 package com.zking.service.impl.xtgl;
 
 import com.zking.mapper.xtgl.ITreeMapper;
-import com.zking.pojo.xtgl.Tree;
+import com.zking.pojo.xtgl.*;
 import com.zking.service.xtgl.ITreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,42 +20,44 @@ public class TreeServiceImpl implements ITreeService{
     }
 
     @Override
-    public List<String> findPostMenuMCodeByPCode(String pcode) {
-        return itm.findPostMenuMCodeByPCode(pcode);
+    public int removeMenuByJop(jopmenu jopmenu) {
+        return itm.removeMenuByJop(jopmenu);
     }
 
     @Override
-    public String findPostMenuByPCodeAndMCode(String pcode, String mcode) {
-        return itm.findPostMenuByPCodeAndMCode(pcode,mcode);
+    public int addMenuByJop(jopmenu jopmenu) {
+        return itm.addMenuByJop(jopmenu);
     }
 
     @Override
-    public String findMenuMParentByMCode(String mcode) {
-        return itm.findMenuMParentByMCode(mcode);
+    public List<Tree> findSonMenuTreeByMCode(String MenuId) {
+        return itm.findSonMenuTreeByMCode(MenuId);
     }
 
     @Override
-    public List<String> findSonMenuMCodeByMCode(String mcode) {
-        return itm.findSonMenuMCodeByMCode(mcode);
+    public List<Tree> findSonMenuButtonByMenuId(String MenuId) {
+        return itm.findSonMenuButtonByMenuId(MenuId);
     }
 
     @Override
-    public String removePostMenu(String pcode, String mcode) {
-        return itm.removePostMenu(pcode,mcode);
+    public int removeJopButtons(JopButtons JopButtons) {
+        return itm.removeJopButtons(JopButtons);
     }
 
     @Override
-    public int findPostMenuCountByPCodeAndMParent(String pcode, String mparent) {
-        return itm.findPostMenuCountByPCodeAndMParent(pcode,mparent);
+    public int addJopButtons(JopButtons JopButtons) {
+        return itm.addJopButtons(JopButtons);
     }
 
     @Override
-    public String addPostMenu(String pcode, String mcode) {
-        return itm.addPostMenu(pcode,mcode);
+    public Menu findOnly(Menu menu) {
+        return itm.findOnly(menu);
     }
 
     @Override
-    public int findSonMenuCountByMParent(String mcode) {
-        return itm.findSonMenuCountByMParent(mcode);
+    public List<Buttons> findButtonsAll(Jop jop) {
+        return itm.findButtonsAll(jop);
     }
+
+
 }

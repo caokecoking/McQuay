@@ -45,7 +45,7 @@ public class PersonnelServiceImpl implements IPersonnelService{
     }
 
     @Override
-    public Personnel FindPersonnelLoGin(Personnel Personnel) {
+    public String FindPersonnelLoGin(String Personnel) {
         return ips.FindPersonnelLoGin(Personnel);
     }
 

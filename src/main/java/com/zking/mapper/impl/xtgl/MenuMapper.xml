@@ -30,23 +30,16 @@
         select * FROM Menu where MenuParent ='-1'
     </select>
 
-    <select id="findSonMenuByPid" resultType="Menu" parameterType="java.lang.String">
+    <select id="findOnlyMenu" resultType="Menu" parameterType="java.lang.String">
         select * FROM Menu WHERE MenuId=#{MenuId}
     </select>
-
-    <resultMap type="Menu" id="findParentMenuTreeMap">
-        <id column="MenuId" property="id"/>
-        <result column="MenuName" property="name"/>
-        <result column="MenuParent" property="mparent"/>
-        <result column="MenuPath" property="mpath"/>
-        <collection column="MenuId" property="children"
-                    select="com.zking.mapper.xtgl.ITreeMapper.findSonMenuTreeByMCode"/>
-    </resultMap>
-    <select id="findParentMenuByJop" resultType="Menu" parameterType="java.lang.String">
-        select * from Menu where MenuParent IS NULL and MenuId in (select MenuId from JopMenu where jobid=#{Jop})
+    <select id="findParentMenuByJop" resultType="Menu" parameterType="Jop">
+        select * from Menu where MenuId in (select MenuId from JopMenu where jobId=#{jopId})
     </select>
     <select id="findSonMenuByParent" resultType="Menu" parameterType="Menu">
         select * from Menu where menuParent=#{startTime} and MenuId in (select MenuId from JopMenu where jobid=#{endTime})
     </select>
-
+    <select id="findAllSonMenu" resultType="Menu" >
+        SELECT  * from Menu where MenuParent!="-1"
+    </select>
 </mapper>

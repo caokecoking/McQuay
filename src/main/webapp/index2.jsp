@@ -49,7 +49,7 @@
                 <li lay-id="ss" class="layui-this">首页</li>
             </ul>
             <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show"></div>
+                <div class="layui-tab-item layui-show"><img src="images/bg1.jpg"></div>
             </div>
         </div>
     </div>

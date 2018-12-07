@@ -19,7 +19,7 @@ public interface IPersonnelService {
     public int removePersonnel(Personnel Personnel);
 
     // 登录
-    public Personnel FindPersonnelLoGin(Personnel Personnel);
+    public String FindPersonnelLoGin(String Personnel);
 
     public int addPersonnelCompany(Personnel personnel);
 

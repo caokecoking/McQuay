@@ -43,5 +43,6 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
+    <import resource="spring-shiro.xml"></import>
     <tx:annotation-driven transaction-manager="dataSourceTransactionManager"></tx:annotation-driven>
 </beans>
