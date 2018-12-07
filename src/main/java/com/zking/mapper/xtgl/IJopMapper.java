@@ -19,4 +19,6 @@ public interface IJopMapper {
     public int editJop(Jop jop);
 
     public int removeJop(Jop jop);
+
+    public List<Jop> findAllByDeptid(Jop jop);
 }

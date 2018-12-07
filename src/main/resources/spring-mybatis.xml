@@ -12,6 +12,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://192.168.43.130/mcquay?characterEncoding=utf-8"/>
+        <!--<property name="url" value="jdbc:mysql://localhost:3306/test1?characterEncoding=utf-8"/>-->
         <property name="username" value="root"/>
         <property name="password" value="sasa"/>
         <!-- 初始化连接大小 -->
@@ -42,5 +43,6 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
+    <import resource="spring-shiro.xml"></import>
     <tx:annotation-driven transaction-manager="dataSourceTransactionManager"></tx:annotation-driven>
 </beans>

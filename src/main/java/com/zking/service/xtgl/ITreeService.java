@@ -1,6 +1,6 @@
 package com.zking.service.xtgl;
 
-import com.zking.pojo.xtgl.Tree;
+import com.zking.pojo.xtgl.*;
 
 import java.util.List;
 
@@ -12,82 +12,40 @@ public interface ITreeService {
      */
     public List<Tree> findMenuTree();
 
-    /**
-     * 在职位菜单表中根据职位编码查询所有的菜单编码
-     *
-     * @param pcode
-     *            职位编码
-     * @return
-     */
-    public List<String> findPostMenuMCodeByPCode(String pcode);
-
-    /**
-     * 根据职位编号和菜单编号来查询职位菜单表
-     *
-     * @param pcode
-     *            职位编号
-     * @param mcode
-     *            菜单编号
-     * @return
-     */
-    public String findPostMenuByPCodeAndMCode(String pcode, String mcode);
-
-    /**
-     * 根据菜单编号来查询它的父级菜单
-     *
-     * @param mcode
-     *            菜单编码
-     * @return
-     */
-    public String findMenuMParentByMCode(String mcode);
-
-    /**
-     * 根据菜单编码来查询它所拥有的所有的子菜单的菜单编码再加上本身的菜单编码
-     *
-     * @param mcode
-     *            菜单编码
-     * @return
-     */
-    public List<String> findSonMenuMCodeByMCode(String mcode);
 
     /**
      * 删除职位菜单中间表
-     *
-     * @param pcode
-     *            职位编码
-     * @param mcode
-     *            菜单编码
-     * @return
      */
-    public String removePostMenu(String pcode, String mcode);
-
-    /**
-     * 查询根据父菜单为mparent和职位编码为pcode的职位菜单表中有多少条记录
-     *
-     * @param pcode
-     *            职位编码
-     * @param mparent
-     *            父级菜单编码
-     * @return
-     */
-    public int findPostMenuCountByPCodeAndMParent(String pcode, String mparent);
+    public int removeMenuByJop(jopmenu jopmenu);
 
     /**
      * 增加职位菜单中间表
-     *
-     * @param pcode
-     *            职位编码
-     * @param mcode
-     *            菜单编码
-     * @return
      */
-    public String addPostMenu(String pcode, String mcode);
+    public int addMenuByJop(jopmenu jopmenu);
+
+    public List<Tree> findSonMenuTreeByMCode(String MenuId);
 
     /**
-     * 查询该mcode父菜单编号是否拥有子菜单
-     *
-     * @param mcode
-     * @return
+     * 查询子菜单的按钮
      */
-    public int findSonMenuCountByMParent(String mcode);
+    public List<Tree> findSonMenuButtonByMenuId(String MenuId);
+
+    /**
+     * 删除职位按钮中间表
+     */
+    public int removeJopButtons(JopButtons JopButtons);
+
+    /**
+     * 增加职位按钮中间表
+     */
+    public int addJopButtons(JopButtons JopButtons);
+
+    /**
+     * 查询menu表单个信息
+     */
+    public Menu findOnly(Menu menu);
+    /**
+     * 查询角色表与按钮表所有关系
+     */
+    public List<Buttons> findButtonsAll(Jop jop);
 }

@@ -32,7 +32,7 @@
         table.render({
             elem: '#demo',
             id: 'testReload'
-            , height: '600px'
+            , height: '500px'
             , toolbar: 'default'
             , url: '/Company/findAll.action' //数据接口
             , page: true //开启分页
@@ -70,7 +70,7 @@
                     title: '增加分公司',
                     type : 2,
                     content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','560px']
+                    area :['600px','430px']
                 });
         });
         $('.layui-btn').on('click', function () {
@@ -86,7 +86,7 @@
                     title: '查看分公司',
                     type : 2,
                     content: 'CompanyLook.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','560px']
+                    area :['600px','430px']
                 });
             } else if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
@@ -118,7 +118,7 @@
                     title: '修改分公司',
                     type : 2,
                     content: 'CompanyEdit.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','560px']
+                    area :['600px','430px']
                 });
             }
         });

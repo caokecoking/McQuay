@@ -139,8 +139,6 @@
             }
         });
     });
-</script>
-<script>
     //Demo
     layui.use('form', function () {
         $('.layui-form .city').distpicker();

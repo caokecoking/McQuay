@@ -3,23 +3,44 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zking.mapper.xtgl.IDepartmentMapper">
+    <resultMap id="DepartmentAll" type="Department">
+        <id property="Deptid" column="Deptid"></id>
+        <result property="DeptCoding" column="DeptCoding"></result>
+        <result property="DeptName" column="DeptName"></result>
+        <collection property="Sc" ofType="Company">
+            <id column="Compid" property="Compid"></id>
+            <result column="" property="CompName"></result>
+        </collection>
+        <collection property="Sj" ofType="Jop">
+            <id property="JopId" column="JopId"></id>
+            <result property="JopName" column="JopName"></result>
+        </collection>
+    </resultMap>
     <select id="findLeaveDepartment" resultType="Department">
-        select * FROM Department
+        select * FROM Department d
+        inner join companydepartment cd
+        on d.deptid=cd.deptid
+        inner join Company c
+        on cd.compid=c.compid
+        inner join departmentjop dj
+        on d.deptid=dj.deptid
+        inner join jop j
+        on j.jopid=dj.jopid
     </select>
     <select id="findAllByDepartment" resultType="Department" parameterType="Department">
-        select * FROM Department
+        select * FROM Department d
         <where>
             <if test="DeptName!=null">
-                DeptName like '%${DeptName}%'
+                d.DeptName like '%${DeptName}%'
             </if>
         </where>
         limit #{page},#{limit}
     </select>
     <select id="findOnlybyDepartment" parameterType="Department" resultType="Department">
-        select * from department where deptid=#{deptid}
+        select * FROM Department d  where d.deptid=#{deptid}
     </select>
     <select id="getMax" resultType="integer" parameterType="Department">
-        select count(DeptName) from Department where DeptName like '%${DeptName}%'
+        select count(d.deptid) FROM Department d where d.DeptName like '%${DeptName}%'
     </select>
     <insert id="addDepartment" parameterType="Department">
         INSERT INTO department VALUES (UUID(),#{DeptCoding},#{DeptName})
@@ -27,7 +48,11 @@
     <update id="editDepartment" parameterType="Department">
         update department set DeptName=#{DeptName} where Deptid =#{Deptid}
     </update>
-    <delete id="removeDepartment" parameterType="Department">
-
-    </delete>
+    <select id="findAllByCompid" resultType="Department" parameterType="java.lang.String">
+        select * FROM Department d
+        inner join companydepartment cd
+        on d.deptid=cd.deptid
+        inner join Company c
+        on cd.compid=c.compid where c.compid=#{compid}
+    </select>
 </mapper>

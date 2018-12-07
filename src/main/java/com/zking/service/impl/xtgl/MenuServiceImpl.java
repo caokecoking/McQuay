@@ -1,7 +1,9 @@
 package com.zking.service.impl.xtgl;
 
 import com.zking.mapper.xtgl.IMenuMapper;
+import com.zking.pojo.xtgl.Jop;
 import com.zking.pojo.xtgl.Menu;
+import com.zking.pojo.xtgl.Tree;
 import com.zking.service.xtgl.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class MenuServiceImpl implements IMenuService{
     private IMenuMapper imm;
 
     @Override
-    public List<Menu> findParentMenuByJop(String Jop) {
+    public List<Menu> findParentMenuByJop(Jop Jop) {
         return imm.findParentMenuByJop(Jop);
     }
 
@@ -25,13 +27,13 @@ public class MenuServiceImpl implements IMenuService{
     }
 
     @Override
-    public List<Menu> findParentMenuAll(String query) {
-        return imm.findParentMenuAll(query);
+    public List<Tree> findParentMenuAll(Menu menu) {
+        return imm.findParentMenuAll(menu);
     }
 
     @Override
-    public List<Menu> findSonMenuByPid(String MenuParent) {
-        return imm.findSonMenuByPid(MenuParent);
+    public Menu findOnlyMenu(String MenuParent) {
+        return imm.findOnlyMenu(MenuParent);
     }
 
     @Override
@@ -51,6 +53,11 @@ public class MenuServiceImpl implements IMenuService{
 
     @Override
     public int editMenu(Menu menu) {
-        return 0;
+        return imm.editMenu(menu);
+    }
+
+    @Override
+    public List<Menu> findAllSonMenu() {
+        return imm.findAllSonMenu();
     }
 }

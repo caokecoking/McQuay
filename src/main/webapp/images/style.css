@@ -1,0 +1,83 @@
+@ font-face {
+  font-family：'icomoon';
+  src：url（'fonts / icomoon.eot？u4m6fy'）;
+  src：url（'fonts / icomoon.eot？u4m6fy #iefix'）格式（'embedded-opentype'），
+    url（'fonts / icomoon.ttf？u4m6fy'）格式（'truetype'），
+    url（'fonts / icomoon.woff？u4m6fy'）格式（'woff'），
+    url（'fonts / icomoon.svg？u4m6fy＃icomoon'）格式（'svg'）;
+  font-weight：normal;
+  font-style：normal;
+}
+
+[class ^ =“icon-”]，[class * =“icon-”] {
+  / * use！important以防止更改字体的浏览器扩展问题* /
+  font-family：'icomoon'！important;
+  说：没有
+  font-style：normal;
+  font-weight：normal;
+  font-variant：normal;
+  text-transform：none;
+  line-height：1;
+
+  / *更好的字体渲染=========== * /
+  -webkit-font-smoothing：antialiased;
+  -moz-osx-font-smoothing：灰度;
+}
+
+.icon-logg：在{之前
+  内容：“\ e915”;
+}
+.icon-manager：在{之前
+  内容：“\ e916”;
+}
+.icon-user：在{之前
+  内容：“\ e917”;
+}
+.icon-data：在{之前
+  内容：“\ e918”;
+}
+.icon-sysmanager：在{之前
+  内容：“\ e919”;
+}
+.icon-list：在{之前
+  内容：“\ e91a”;
+}
+.icon-passagewaymanager：在{之前
+  内容：“\ e91b”;
+}
+.icon-base：在{之前
+  内容：“\ e91c”;
+}
+.icon-agentlist：在{之前
+  内容：“\ e91d”;
+}
+.icon-configure：before {
+  内容：“\ e91e”;
+}
+.icon-flow：在{之前
+  内容：“\ e91f”;
+}
+.icon-orderlist：在{之前
+  内容：“\ e920”;
+}
+.icon-ydlist：在{之前
+  内容：“\ e921”;
+}
+.icon-agentpay：在{之前
+  内容：“\ e922”;
+}
+.icon-agentsum：在{之前
+  内容：“\ e923”;
+}
+.icon-passagewaysum：在{之前
+  内容：“\ e924”;
+}
+.icon-custom：在{之前
+  内容：“\ e925”;
+}
+.icon-address：before {
+  内容：“\ e926”;
+}
+.icon-lock：在{之前
+  内容：“\ e927”;
+}

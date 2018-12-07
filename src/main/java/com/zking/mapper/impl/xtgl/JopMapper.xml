@@ -27,12 +27,19 @@
         </where>
     </select>
     <insert id="addJop" parameterType="Jop">
-        INSERT INTO jop VALUES (#{JopId},#{JopName},#{Rel})
+        INSERT INTO jop VALUES (UUID(),#{JopName},#{Rel})
     </insert>
     <update id="editJop" parameterType="Jop">
-        UPDATE jop SET JopName=JopName,Rel=Rel WHERE JopId=#{JopId}
+        UPDATE jop SET JopName=#{JopName},Rel=#{Rel} WHERE JopId=#{JopId}
     </update>
     <delete id="removeJop" parameterType="Jop">
         DELETE FROM jop WHERE JopId=#{JopId}
     </delete>
+    <select id="findAllByDeptid" resultType="Jop" parameterType="Jop">
+        select * from Jop  j
+        inner join departmentjop dj
+        on j.jopid=dj.jopid
+        inner join department d
+        on dj.deptid=d.deptid where d.deptid=#{name}
+    </select>
 </mapper>

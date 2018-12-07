@@ -1,18 +1,16 @@
 package com.zking.controller.xtgl;
 
-import com.zking.pojo.xtgl.Jop;
-import com.zking.pojo.xtgl.Menu;
-import com.zking.pojo.xtgl.Personnel;
+import com.zking.pojo.xtgl.*;
+import com.zking.service.xtgl.IButtonsService;
 import com.zking.service.xtgl.IMenuService;
+import com.zking.service.xtgl.ITreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("Menu")
@@ -21,81 +19,117 @@ public class MenuController {
     @Autowired
     private IMenuService ims;
 
+    @Autowired
+    private ITreeService its;
+
+    @Autowired
+    private IButtonsService ibs;
+
     @ResponseBody
-    @RequestMapping("findParentMenuByJop")
-    public List<Menu> findParentMenuByJop(Personnel personnel){
-//        List<Menu> lm=null;
-//        for (Jop jop : personnel.getSj()) {
-//            lm=ims.findParentMenuByJop(jop.getJopId());
-//            return lm;
-//        }
-//        return lm;
-        return ims.findParentMenuAll1();
+    @RequestMapping("findMenuTree")
+    public Map findMenuTree(Menu menu) {
+        Map<String, Object> map = new HashMap<>();
+        List<Tree> lm = ims.findParentMenuAll(menu);
+        map.put("data", lm);
+        map.put("code", 0);
+        map.put("msg", "获取成功");
+        return map;
     }
 
     @ResponseBody
-    @RequestMapping("findSonMenuByParent")
-    public List<Menu> findSonMenuByParent(Personnel personnel,String endTime){
-        List<Menu> lm=null;
-        Menu menu=new Menu();
-        menu.setEndTime(endTime);
-        for (Jop jop : personnel.getSj()) {
-            menu.setStartTime(jop.getJopId());
-            lm=ims.findSonMenuByParent(menu);
-            return lm;
-        }
-        return lm;
-    }
-
-    @RequestMapping("findMenuTreeGrid")
-    public List<Menu> findMenuTreeGrid(String query){
-        List<Menu> lms = new ArrayList<>();
-        List<Menu> lm = ims.findParentMenuAll(query);
-        for (Menu menu : lm) {
-            lms.add(menu);
-            List<Menu> lmm = ims.findSonMenuByPid(menu.getMenuId());
-            for (Menu menu2 : lmm) {
-                lms.add(menu2);
+    @RequestMapping("findMenuTree1")
+    public Map findMenuTree1(Menu menu) {
+        Map<String, Object> map = new HashMap<>();
+        List<Tree> lm = ims.findParentMenuAll(menu);
+        List<Tree> lm1 = new ArrayList<>();
+        for (Tree menu1 : lm) {
+            List<Tree> lt = its.findSonMenuButtonByMenuId(menu1.getId());
+            if (lt.size() > 0) {
+                for (Tree tree : lt) {
+                    lm1.add(tree);
+                }
             }
         }
-        return lms;
+        for (Tree menu1 : lm1) {
+            lm.add(menu1);
+        }
+        map.put("data", lm);
+        map.put("code", 0);
+        map.put("msg", "获取成功");
+        return map;
     }
 
     @ResponseBody
-    @RequestMapping("findParentMenuAll")
-    public List<Menu> findParentMenuAll(String addOrEdit){
-        List<Menu> lm = ims.findParentMenuAll1();
-        if (addOrEdit.equals("add")) {
-            Menu m = new Menu();
-            m.setMenuId("--请选择父菜单--");
-            m.setMenuName("--请选择父菜单--");
-            lm.add(0, m);
-        }
-        return lm;
+    @RequestMapping("findParentMenuAll1")
+    public Map findParentMenuAll1() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", ims.findParentMenuAll1());
+        map.put("code", 0);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("findAllSonMenu")
+    public Map findAllSonMenu() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", ims.findAllSonMenu());
+        map.put("code", 0);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("findOnly")
+    public Map findOnly(Menu menu) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("Menu", ims.findOnlyMenu(menu.getMenuId()));
+        return map;
     }
 
     @ResponseBody
     @RequestMapping("addMenu")
-    public int addMenu(Menu menu){
+    public int addMenu(Menu menu) {
         return ims.addMenu(menu);
     }
 
     @ResponseBody
     @RequestMapping("removeMenu")
-    public int removeMenu(Menu menu){
-        if(menu.getMenuParent()==null||menu.getMenuParent()=="") {
-            List<Menu> lm = ims.findSonMenuByPid(menu.getMenuParent());
-            lm.add(menu);
-            for (Menu menu1 : lm) {
-                Set<Jop> mp = menu1.getSj();
+    public int removeMenu(Menu menu) {
+        Menu menu1 = ims.findOnlyMenu(menu.getMenuId());
+        if (menu1.getMenuParent() == "-1") {
+            List<Tree> lt = its.findSonMenuTreeByMCode(menu1.getMenuId());
+            for (Tree tree : lt) {
+                menu.setMenuId(tree.getId());
+                ims.removeMenu(menu);
             }
         }
-        return ims.removeMenu(menu);
+        return ims.removeMenu(menu1);
     }
 
     @ResponseBody
     @RequestMapping("editMenu")
-    public int editMenu(Menu menu){
+    public int editMenu(Menu menu) {
+        Menu menu1 = ims.findOnlyMenu(menu.getMenuId());
+        if (menu1.getMenuParent().equals("-1") && (!menu.getMenuParent().equals("-1"))) {
+            return 0;
+        }
+        if ((!menu1.getMenuParent().equals("-1")) && menu.getMenuParent().equals("-1")) {
+            return 2;
+        }
         return ims.editMenu(menu);
+    }
+
+    @ResponseBody
+    @RequestMapping("pdMenuButton")
+    public Map pdMenuButton(String id){
+        Map<String, Object> map = new HashMap<>();
+        Menu menu=new Menu();
+        menu.setMenuId(id);
+        if(its.findOnly(menu)!=null){
+            map.put("int",0);
+        }else{
+            map.put("int",1);
+        }
+        map.put("a",id);
+        return map;
     }
 }

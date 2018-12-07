@@ -1,4 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD sHTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%--
+  Created by IntelliJ IDEA.
+  User: 93525
+  Date: 2018/12/3
+  Time: 10:33
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,20 +15,24 @@
     <script type="text/javascript" src="layui/layui.js"></script>
 </head>
 <body>
-
-<div class="layui-container">
-
-    <div class="layui-col-md6 layui-col-md-offset1">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label">选择权限</label>
-                <div class="layui-input-block">
-                    <div id="LAY-auth-tree-index"></div>
-                </div>
+<div class="layui-row">
+    <div class="layui-col-xs3">
+        <div class="layui-form-item layui-form">
+            <div class="layui-input-inline">
+                <div><a style="font-size: 30px;font-style: inherit">权限管理</a></div>
+                <div id="LAY-auth-tree-index"></div>
             </div>
-        </form>
+        </div>
+    </div>
+    <div class="layui-col-xs9">
+        <div class="layui-inline">
+            <input name="id" class="layui-input" placeholder="职位名称" id="JopName" type="text">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+        <table id="demo" lay-filter="test"></table>
     </div>
 </div>
+<input type="hidden" id="JopId"/>
 </body>
 <script type="text/javascript">
     layui.config({
@@ -33,82 +45,110 @@
         var authtree = layui.authtree;
         var form = layui.form;
         var layer = layui.layer;
-        // 初始化
+        // 一般来说，权限数据是异步传递过来的
         $.ajax({
-            url: '/Menu/findParentMenuByJop.action',
+            url: '/tree/findMenuTree.action',
             dataType: 'json',
             success: function (data) {
-                // 渲染时传入渲染目标ID，树形结构数据（具体结构看样例，checked表示默认选中），以及input表单的名字
-                authtree.render('#LAY-auth-tree-index', data.trees, {
-                    inputname: 'authids[]'
-                    , layfilter: 'lay-check-auth'
-                    // ,autoclose: false
-                    // ,autochecked: false
-                    // ,openchecked: true
-                    // ,openall: true
-                    , autowidth: true
+                var trees = data;
+                // 如果后台返回的不是树结构，请使用 authtree.listConvert 转换
+                authtree.render('#LAY-auth-tree-index', trees, {
+                    inputname: 'authids[]',
+                    layfilter: 'lay-check-auth',
+                    autowidth: true,
                 });
-                // PS:使用 form.on() 会引起了事件冒泡延迟的BUG，需要 setTimeout()，并且无法监听全选/全不选
-                // PS:如果开启双击展开配置，form.on()会记录两次点击事件，authtree.on()不会
-                form.on('checkbox(lay-check-auth)', function (data) {
-                    // 注意这里：需要等待事件冒泡完成，不然获取叶子节点不准确。
-                    setTimeout(function () {
-                        console.log('监听 form 触发事件数据', data);
-                        // 获取选中的叶子节点
-                        var leaf = authtree.getLeaf('#LAY-auth-tree-index');
-                        console.log('leaf', leaf);
-                        // 获取最新选中
-                        var lastChecked = authtree.getLastChecked('#LAY-auth-tree-index');
-                        console.log('lastChecked', lastChecked);
-                        // 获取最新取消
-                        var lastNotChecked = authtree.getLastNotChecked('#LAY-auth-tree-index');
-                        console.log('lastNotChecked', lastNotChecked);
-                    }, 100);
-                });
-                // 使用 authtree.on() 不会有冒泡延迟
-                authtree.on('change(lay-check-auth)', function (data) {
-                    console.log('监听 authtree 触发事件数据', data);
-                    // 获取所有节点
-                    var all = authtree.getAll('#LAY-auth-tree-index');
-                    console.log('all', all);
-                    // 获取所有已选中节点
-                    var checked = authtree.getChecked('#LAY-auth-tree-index');
-                    console.log('checked', checked);
-                    // 获取所有未选中节点
-                    var notchecked = authtree.getNotChecked('#LAY-auth-tree-index');
-                    console.log('notchecked', notchecked);
-                    // 获取选中的叶子节点
-                    var leaf = authtree.getLeaf('#LAY-auth-tree-index');
-                    console.log('leaf', leaf);
-                    // 获取最新选中
-                    var lastChecked = authtree.getLastChecked('#LAY-auth-tree-index');
-                    console.log('lastChecked', lastChecked);
-                    // 获取最新取消
-                    var lastNotChecked = authtree.getLastNotChecked('#LAY-auth-tree-index');
-                    console.log('lastNotChecked', lastNotChecked);
-                });
-                authtree.on('deptChange(lay-check-auth)', function (data) {
-                    console.log('监听到显示层数改变', data);
-                });
-            },
-            error: function (xml, errstr, err) {
-                layer.alert(errstr + '，获取样例数据失败，请检查是否部署在本地服务器中！');
             }
         });
-        form.on('submit(LAY-auth-tree-submit)', function (obj) {
-            var authids = authtree.getChecked('#LAY-auth-tree-index');
-            console.log('Choosed authids is', authids);
-            obj.field.authids = authids;
-            $.ajax({
-                url: 'tree.json',
-                dataType: 'json',
-                data: obj.field,
-                success: function (res) {
-                    layer.alert('提交成功！');
+        authtree.on('change(lay-check-auth)', function (data) {
+            // 获取最新选中
+            var lastChecked = authtree.getLastChecked('#LAY-auth-tree-index');
+            if (lastChecked.length > 0) {
+                for (var i=0; i<lastChecked.length;i++){
+                    console.log(lastChecked[i]);
+                   $.ajax({
+                    url: '/tree/addMenuByJop.action',
+                    dataType: 'json',
+                    data:{
+                        Jobid: $('#JopId').val(),
+                        MenuId:lastChecked[i]
+                    },
+                    success: function (data) {
+                    }
+                });
                 }
-            });
-            return false;
+            }
+            // 获取最新取消
+            var lastNotChecked = authtree.getLastNotChecked('#LAY-auth-tree-index');
+            if (lastNotChecked.length > 0) {
+                for (var i=0; i<lastNotChecked.length;i++){
+                    $.ajax({
+                        url: '/tree/removeMenuByJop.action',
+                        dataType: 'json',
+                        data:{
+                            Jobid: $('#JopId').val(),
+                            MenuId:lastNotChecked[i]
+                        },
+                        success: function (data) {
+                        }
+                    });
+                }
+            }
         });
     });
+    layui.use('table', function () {
+        var table = layui.table;
+        var layEvent = table.event;
+        //第一个实例
+        table.render({
+            elem: '#demo',
+            id: 'testReload'
+            , height: '675px'
+            , url: '/Jop/findAll.action' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'JopName', title: '职位名称', width: '50%'}
+                , {field: 'Rel', title: '职位职能', width: '50%'}
+            ]], limits: [5, 10, 15, 20],
+            limit: 5
+
+        });
+        //数据重载（查询）
+        var $ = layui.$, active = {
+            reload: function () {
+                //执行重载
+                table.reload('testReload', {
+                    url: '/Jop/findAll.action',
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        JopName: $('#JopName').val()
+                    }
+                });
+            }
+        };
+        var $ = layui.jquery;
+        var authtree = layui.authtree;
+        var form = layui.form;
+        var layer = layui.layer;
+        table.on('row(test)', function (obj) {
+            console.log(obj.data) //得到当前行数据
+            $('#JopId').val(obj.data.JopId);
+            $.ajax({
+                url: '/tree/findParentMenuByJop.action?JopId=' + obj.data.JopId,
+                dataType: 'json',
+                success: function (data) {
+                    var trees = data;
+                    // 如果后台返回的不是树结构，请使用 authtree.listConvert 转换
+                    authtree.render('#LAY-auth-tree-index', trees, {
+                        inputname: 'authids[]',
+                        layfilter: 'lay-check-auth',
+                        autowidth: true,
+                    });
+                }
+            });
+        });
+    });
+
 </script>
 </html>

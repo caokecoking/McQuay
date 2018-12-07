@@ -42,7 +42,6 @@
             },
             dataType: "json",
             success: function (data) {
-                alert(data.Deptid);
                 $('#Deptid').val(data.Deptid);
                 $('#DeptName').val(data.DeptName);
             }

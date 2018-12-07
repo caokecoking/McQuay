@@ -3,20 +3,80 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zking.mapper.xtgl.ICompanyMapper">
-    <select id="findAll" resultType="Company" parameterType="Company">
-       select * FROM Company
+    <resultMap id="CompanyAll" type="Company">
+        <id property="Compid" column="Compid"></id>
+        <result property="CompName" column="CompName"></result>
+        <result property="CompCoding" column="CompCoding"></result>
+        <result property="CompAddress" column="CompAddress"></result>
+        <result property="CompAttribute" column="CompAttribute"></result>
+        <result property="CompEmailAddress" column="CompEmailAddress"></result>
+        <result property="CompEmailPassword" column="CompEmailPassword"></result>
+        <result property="Coun" column="Coun"></result>
+        <result property="Dist" column="Dist"></result>
+        <result property="Prov" column="Prov"></result>
+        <collection property="Sp" ofType="Personnel">
+            <id property="PersId" column="PersId"></id>
+            <result property="PersName" column="PersName"></result>
+        </collection>
+        <collection property="Sd" ofType="Department">
+            <id property="Deptid" column="Deptid"></id>
+            <result property="DeptName" column="DeptName"></result>
+            <collection property="Sj" ofType="Jop">
+                <id property="JopId" column="JopId"></id>
+                <result property="JopName" column="JopName"></result>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="findAll" resultMap="CompanyAll" parameterType="Company">
+        select * FROM Company c
+        inner join personnelcompany pc
+        on pc.compid=c.compid
+        inner join personnel p
+        on pc.persid=p.persid
+        inner join companydepartment cd
+        on c.compid=cd.compid
+        inner join department d
+        on cd.deptid=d.deptid
+        inner join departmentjop dj
+        on d.Deptid =dj.Deptid
+        inner join Jop j
+        on dj.JopId=j.JopId
        <where>
            <if test="CompName!=null">
-               and CompName like '%${CompName}%'
+               and c.CompName like '%${CompName}%'
            </if>
        </where>
         limit #{page},#{limit}
     </select>
     <select id="getMax" resultType="java.lang.Integer" parameterType="Company">
-        select count(CompName) from Company where CompName like '%${CompName}%'
+        select count(c.compid) FROM Company c
+        inner join personnelcompany pc
+        on pc.compid=c.compid
+        inner join personnel p
+        on pc.persid=p.persid
+        inner join companydepartment cd
+        on c.compid=cd.compid
+        inner join department d
+        on cd.deptid=d.deptid
+        inner join departmentjop dj
+        on d.Deptid =dj.Deptid
+        inner join Jop j
+        on dj.JopId=j.JopId where c.CompName like '%${CompName}%'
     </select>
-    <select id="findonly" resultType="Company" parameterType="Company">
-        select * from Company where Compid=#{Compid}
+    <select id="findonly" resultMap="CompanyAll" parameterType="Company">
+        select * FROM Company c
+        inner join personnelcompany pc
+        on pc.compid=c.compid
+        inner join personnel p
+        on pc.persid=p.persid
+        inner join companydepartment cd
+        on c.compid=cd.compid
+        inner join department d
+        on cd.deptid=d.deptid
+        inner join departmentjop dj
+        on d.Deptid =dj.Deptid
+        inner join Jop j
+        on dj.JopId=j.JopId where c.Compid=#{Compid}
     </select>
     <insert id="add" parameterType="Company">
         INSERT INTO Company VALUES (UUID(),#{CompCoding},#{CompName},#{CompAttribute},#{Prov},#{Dist},#{Coun},#{CompAddress},#{CompEmailAddress},#{CompEmailPassword})
@@ -32,11 +92,35 @@
     <select id="getEnd" resultType="java.lang.String" parameterType="Company">
         SELECT MAX(SUBSTR(compCoding, -4))+1 FROM Company WHERE Prov LIKE '%${Prov}%'
     </select>
-    <select id="findByListId" parameterType="Company" resultType="Company">
-        select * from Company where CompId in (#{name})
+    <select id="findByListId" parameterType="Company" resultMap="CompanyAll">
+        select * FROM Company c
+        inner join personnelcompany pc
+        on pc.compid=c.compid
+        inner join personnel p
+        on pc.persid=p.persid
+        inner join companydepartment cd
+        on c.compid=cd.compid
+        inner join department d
+        on cd.deptid=d.deptid
+        inner join departmentjop dj
+        on d.Deptid =dj.Deptid
+        inner join Jop j
+        on dj.JopId=j.JopId where c.CompId in (#{name})
     </select>
-    <select id="findCompanyId" resultType="Company">
-        select * from Campany
+    <select id="findCompanyId" resultMap="CompanyAll">
+        select * FROM Company c
+        inner join personnelcompany pc
+        on pc.compid=c.compid
+        inner join personnel p
+        on pc.persid=p.persid
+        inner join companydepartment cd
+        on c.compid=cd.compid
+        inner join department d
+        on cd.deptid=d.deptid
+        inner join departmentjop dj
+        on d.Deptid =dj.Deptid
+        inner join Jop j
+        on dj.JopId=j.JopId
     </select>
     <select id="FindCompanyByAttribute" resultType="Company">
         select * from Company where CompAttribute='销售公司'

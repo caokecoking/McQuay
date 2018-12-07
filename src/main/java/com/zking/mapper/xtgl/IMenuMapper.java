@@ -1,17 +1,19 @@
 package com.zking.mapper.xtgl;
 
+import com.zking.pojo.xtgl.Jop;
 import com.zking.pojo.xtgl.Menu;
+import com.zking.pojo.xtgl.Tree;
 
 import java.util.List;
 
 public interface IMenuMapper {
-    public List<Menu> findParentMenuByJop(String Jop);
+    public List<Menu> findParentMenuByJop(Jop Jop);
 
     public List<Menu> findSonMenuByParent(Menu menu);
 
-    public List<Menu> findParentMenuAll(String query);
+    public List<Tree> findParentMenuAll(Menu menu);
 
-    public List<Menu> findSonMenuByPid(String MenuParent);
+    public Menu findOnlyMenu(String MenuId);
     /**
      * 查询所有的父级菜单
      *
@@ -44,4 +46,6 @@ public interface IMenuMapper {
      * @return
      */
     public int editMenu(Menu menu);
+
+    public List<Menu> findAllSonMenu();
 }

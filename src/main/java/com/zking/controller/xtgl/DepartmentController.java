@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,11 @@ public class DepartmentController {
         map.put("count", total);
         return map;
     }
+    @ResponseBody
+    @RequestMapping("findAllByCompid")
+    public List<Department> findAllByCompid(Department department) {
+        return ids.findAllByCompid(department.getName());
+    }
 
     @ResponseBody
     @RequestMapping("addDepartment")
@@ -62,7 +68,6 @@ public class DepartmentController {
     @ResponseBody
     @RequestMapping("findOnly")
     public Department findOnly(Department department) {
-        Department department1 = ids.findOnlybyDepartment(department);
-        return department1;
+        return ids.findOnlybyDepartment(department);
     }
 }
