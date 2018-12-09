@@ -20,9 +20,9 @@
 <div class="layui-form">
     <input type="hidden" id="Deptid" value="<%=request.getParameter("Deptid")%>"/>
     <div class="layui-form-item">
-        <label class="layui-form-label">岗位名称</label>
+        <label class="layui-form-label">部门名称</label>
         <div class="layui-input-block">
-            <input type="text" placeholder="岗位名称" id="DeptName" autocomplete="off" class="layui-input">
+            <input type="text" placeholder="部门名称" id="DeptName" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">

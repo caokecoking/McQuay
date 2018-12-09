@@ -30,7 +30,6 @@ public class PersonnelController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(personnel.getPersCoding(),personnel.getPersPassword());
         subject.login(usernamePasswordToken);
-        System.out.println(subject.isAuthenticated());
         return 1;
     }
 

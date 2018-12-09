@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 93525
@@ -10,18 +11,20 @@
 <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <shiro:hasPermission name="editJop"><a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a></shiro:hasPermission>
+    <shiro:hasPermission name="deleteJop"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></shiro:hasPermission>
 </script>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
+<shiro:hasPermission name="selectJop">
 <div class="layui-inline">
-    <input name="id" class="layui-input" placeholder="职位名称" id="JopName" type="text">
+    <input name="id" class="layui-input" placeholder="角色名称" id="JopName" type="text">
 </div>
 <button class="layui-btn" data-type="reload">搜索</button>
+</shiro:hasPermission>
 <table id="demo" lay-filter="test"></table>
 <script>
     layui.use('table', function () {
@@ -36,10 +39,10 @@
             , url: '/Jop/findAll.action' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'JopId', title: '职位编码', width: '15%', sort: true, fixed: 'left'}
-                , {field: 'JopName', title: '职位名称', width: '15%'}
-                , {field: 'Rel', title: '职位职能', width: '15%'}
-                , {fixed: 'right', title: '操作', width: '20%', align: 'center', toolbar: '#barDemo'}
+                {field: 'JopId', title: '职位编码', width: '25%', sort: true, fixed: 'left'}
+                , {field: 'JopName', title: '职位名称', width: '25%'}
+                , {field: 'Rel', title: '职位职能', width: '25%'}
+                , {fixed: 'right', title: '操作', width: '25%', align: 'center', toolbar: '#barDemo'}
             ]], limits: [5, 10, 15, 20],
             limit: 5
 
@@ -62,7 +65,7 @@
 
         $('.layui-table-tool-temp .layui-inline').on('click',function(){
             layer.open({
-                title: '增加岗位',
+                title: '增加角色',
                 type : 2,
                 content: 'JopAdd.jsp', //数组第二项即吸附元素选择器或者DOM
                 area :['600px','320px']

@@ -20,15 +20,15 @@
 <div class="layui-form">
     <br/>
     <div class="layui-form-item">
-        <label class="layui-form-label">职位名称</label>
+        <label class="layui-form-label">角色名称</label>
         <div class="layui-input-block">
-            <input type="text" placeholder="岗位名称" id="JopName" autocomplete="off" class="layui-input">
+            <input type="text" placeholder="角色名称" id="JopName" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">职位职能</label>
+        <label class="layui-form-label">角色职能</label>
         <div class="layui-input-block">
-            <textarea name="desc" placeholder="职位职能" id="Rel" class="layui-textarea"></textarea>
+            <textarea name="desc" placeholder="角色职能" id="Rel" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item">

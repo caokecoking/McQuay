@@ -31,4 +31,15 @@
         inner join Menu m
         on mb.MenuId=m.MenuId where b.bid=#{bid}
     </select>
+    <select id="findButtonsByPersCoding" resultType="Buttons" parameterType="java.lang.String">
+        SELECT b.*,b.permission as premission FROM personnel p
+        INNER JOIN personneljop pj
+        ON p.persid=pj.persid
+        INNER JOIN jop j
+        ON j.jopid=pj.jopid
+        INNER JOIN jopbutton jb
+        ON j.jopid=jb.jobid
+        INNER JOIN buttons b
+        ON b.bid=jb.bid where PersCoding=#{PersCoding}
+    </select>
 </mapper>

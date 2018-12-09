@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 93525
@@ -10,19 +11,24 @@
 <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="barDemo">
-    <a id="query" class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <shiro:hasPermission name="queryCompany"><a id="query" class="layui-btn layui-btn-xs"
+                                                lay-event="detail">查看</a></shiro:hasPermission>
+    <shiro:hasPermission name="editCompany"><a class="layui-btn layui-btn-xs"
+                                               lay-event="edit">编辑</a></shiro:hasPermission>
+    <shiro:hasPermission name="deleteCompany"><a class="layui-btn layui-btn-danger layui-btn-xs"
+                                                 lay-event="del">删除</a></shiro:hasPermission>
 </script>
-    <html>
+<html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<div class="layui-inline">
-<input name="id" class="layui-input" placeholder="分公司名称" id="CompName" type="text">
-</div>
-<button class="layui-btn" data-type="reload">搜索</button>
+<shiro:hasPermission name="selectCompany">
+    <div class="layui-inline">
+        <input name="id" class="layui-input" placeholder="分公司名称" id="CompName" type="text">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</shiro:hasPermission>
 <table id="demo" lay-filter="test"></table>
 <script>
     layui.use('table', function () {
@@ -41,7 +47,7 @@
                 , {field: 'CompName', title: '分公司名称', width: '15%'}
                 , {field: 'CompAddress', title: '详细地址', width: '15%', sort: true}
                 , {field: 'CompAttribute', title: '属性', width: '10%'}
-                , {field: 'CompEmailAddress', title: '邮箱地址', width: '10%',templet:'#isPayment1'}
+                , {field: 'CompEmailAddress', title: '邮箱地址', width: '10%', templet: '#isPayment1'}
                 , {field: 'CompEmailPassword', title: '邮箱密码', width: '15%', sort: true}
                 , {fixed: 'right', title: '操作', width: '20%', align: 'center', toolbar: '#barDemo'}
             ]], limits: [5, 10, 15, 20],
@@ -65,13 +71,13 @@
             }
         };
 
-        $('.layui-table-tool-temp .layui-inline').on('click',function(){
-                layer.open({
-                    title: '增加分公司',
-                    type : 2,
-                    content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','430px']
-                });
+        $('.layui-table-tool-temp .layui-inline').on('click', function () {
+            layer.open({
+                title: '增加分公司',
+                type: 2,
+                content: 'CompanyAdd.jsp', //数组第二项即吸附元素选择器或者DOM
+                area: ['600px', '430px']
+            });
         });
         $('.layui-btn').on('click', function () {
             var type = $(this).data('type');
@@ -84,13 +90,13 @@
             if (layEvent === 'detail') {
                 layer.open({
                     title: '查看分公司',
-                    type : 2,
-                    content: 'CompanyLook.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','430px']
+                    type: 2,
+                    content: 'CompanyLook.jsp?id=' + data.Compid, //数组第二项即吸附元素选择器或者DOM
+                    area: ['600px', '430px']
                 });
             } else if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    if(index>0){
+                    if (index > 0) {
                         $.ajax({
                             type: "POST",
                             url: "/Company/removeCompany.action",
@@ -116,9 +122,9 @@
             } else if (layEvent === 'edit') {
                 layer.open({
                     title: '修改分公司',
-                    type : 2,
-                    content: 'CompanyEdit.jsp?id='+data.Compid, //数组第二项即吸附元素选择器或者DOM
-                    area :['600px','430px']
+                    type: 2,
+                    content: 'CompanyEdit.jsp?id=' + data.Compid, //数组第二项即吸附元素选择器或者DOM
+                    area: ['600px', '430px']
                 });
             }
         });

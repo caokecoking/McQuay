@@ -16,14 +16,19 @@
                 /login.jsp*=anon
                 /xtgl/*=authc
                 /fwgl/*=authc
-                /zlgl/*=authc
                 /kqgl/*=authc
                 /pjgl/*=authc
+                /zlgl/*=authc
+                /index.jsp=authc
+                /index2.jsp=authc
                 /xtgl/*=roles[admin]
                 /fwgl/*=roles[admin]
-                /zlgl/*=roles[admin]
                 /kqgl/*=roles[admin]
                 /pjgl/*=roles[admin]
+                /zlgl/*=roles[admin]
+                /index.jsp=roles[admin]
+                /index2.jsp=roles[admin]
+                /images/*=anon
                 /extends/*=anon
             </value>
         </property>

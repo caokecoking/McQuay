@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 93525
@@ -23,13 +24,17 @@
         <button class="layui-btn" id="btn-expand">全部展开</button>
         <button class="layui-btn" id="btn-fold">全部折叠</button>
         <button class="layui-btn" id="btn-refresh">刷新表格</button>
-        <button class="layui-btn" id="addMenu">增加菜单</button>
-        <button class="layui-btn" id="addButtons">增加按钮</button>
+        <shiro:hasPermission name="addMenu">
+        <button class="layui-btn" id="addMenu">增加菜单</button></shiro:hasPermission>
+        <shiro:hasPermission name="addButton">
+        <button class="layui-btn" id="addButtons">增加按钮</button></shiro:hasPermission>
     </div>
+    <shiro:hasPermission name="selectMenu">
     <div class="layui-inline">
         <input name="id" class="layui-input" placeholder="菜单名称" id="MenuName" type="text">
     </div>
     <button class="layui-btn" data-type="reload">搜索</button>
+    </shiro:hasPermission>
     <table id="table1" class="layui-table" lay-filter="table1" ></table>
 </div>
 <!-- 操作列 -->

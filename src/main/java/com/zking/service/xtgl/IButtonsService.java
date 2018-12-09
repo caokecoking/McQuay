@@ -3,6 +3,8 @@ package com.zking.service.xtgl;
 import com.zking.pojo.xtgl.Buttons;
 import com.zking.pojo.xtgl.Tree;
 
+import java.util.List;
+
 public interface IButtonsService {
     public int addButtons(Buttons buttons);
 
@@ -16,4 +18,6 @@ public interface IButtonsService {
 
     public Tree findonly(Buttons buttons);
     public int editButtonMenu(Buttons buttons);
+
+    public List<Buttons> findButtonsByPersCoding(String PersCoding);
 }

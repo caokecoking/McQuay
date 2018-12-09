@@ -35,4 +35,5 @@ public interface IPersonnelMapper {
     public int addPersonneldepartment(Personnel personnel);
 
     public int addPersonnelJop(Personnel personnel);
+
 }

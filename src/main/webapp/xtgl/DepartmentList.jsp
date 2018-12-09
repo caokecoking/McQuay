@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 93525
@@ -10,18 +11,20 @@
 <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="barDemo">
-    <a id="query" class="layui-btn layui-btn-xs" lay-event="detail">查看职务</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
+    <shiro:hasPermission name="queryDepartment"><a id="query" class="layui-btn layui-btn-xs" lay-event="detail">查看职务</a></shiro:hasPermission>
+    <shiro:hasPermission name="editDepartment" ><a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a></shiro:hasPermission>
 </script>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
+<shiro:hasPermission name="selectDepartment">
 <div class="layui-inline">
     <input name="id" class="layui-input" placeholder="部门名称" id="DeptName" type="text">
 </div>
 <button class="layui-btn" data-type="reload">搜索</button>
+</shiro:hasPermission>
 <table id="demo" lay-filter="test"></table>
 <script>
     layui.use('table', function () {
@@ -36,9 +39,9 @@
             , url: '/department/findAll.action' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'DeptCoding', title: '部门编码', width: '15%', sort: true, fixed: 'left'}
-                , {field: 'DeptName', title: '部门名称', width: '15%'}
-                , {fixed: 'right', title: '操作', width: '20%', align: 'center', toolbar: '#barDemo'}
+                {field: 'DeptCoding', title: '部门编码', width: '33%', sort: true, fixed: 'left'}
+                , {field: 'DeptName', title: '部门名称', width: '33%'}
+                , {fixed: 'right', title: '操作', width: '34%', align: 'center', toolbar: '#barDemo'}
             ]], limits: [5, 10, 15, 20],
             limit: 5
 
@@ -61,7 +64,7 @@
 
         $('.layui-table-tool-temp .layui-inline').on('click',function(){
             layer.open({
-                title: '增加岗位',
+                title: '增加部门',
                 type : 2,
                 content: 'DepartmentAdd.jsp', //数组第二项即吸附元素选择器或者DOM
                 area :['600px','160px']
@@ -77,14 +80,14 @@
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'detail') {
                 layer.open({
-                    title: '查看职务',
+                    title: '查看部门',
                     type : 2,
                     content: 'JopList.jsp?Deptid='+data.Deptid, //数组第二项即吸附元素选择器或者DOM
                     area :['600px','160px']
                 });
             }  else if (layEvent === 'edit') {
                 layer.open({
-                    title: '修改职务',
+                    title: '修改部门',
                     type : 2,
                     content: 'DepartmentEdit.jsp?Deptid='+data.Deptid, //数组第二项即吸附元素选择器或者DOM
                     area :['600px','160px']

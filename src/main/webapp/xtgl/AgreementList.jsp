@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 93525
@@ -10,15 +11,16 @@
 <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="barDemo">
-    <a id="query" class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <shiro:hasPermission name="queryAgreement"><a id="query" class="layui-btn layui-btn-xs" lay-event="detail">查看</a></shiro:hasPermission>
+    <shiro:hasPermission name="editAgreement"><a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a></shiro:hasPermission>
+    <shiro:hasPermission name="deleteAgreement"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></shiro:hasPermission>
 </script>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
+<shiro:hasPermission name="selectAgreement">
 <div class="layui-inline">
     <input name="id" class="layui-input" placeholder="分公司名称" id="name" type="text">
 </div>
@@ -29,6 +31,7 @@
     <input name="id" class="layui-input" placeholder="协议店名称" id="AgreName" type="text">
 </div>
 <button class="layui-btn" data-type="reload">搜索</button>
+</shiro:hasPermission>
 <table id="demo" lay-filter="test"></table>
 <script type="text/html" id="compName">
     {{d.c.compName }}

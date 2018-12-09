@@ -25,17 +25,13 @@
                             if (data == 1) {
                                 layer.open({
                                     title: '提示消息',
-                                    type: 1,
-                                    content: '登录成功', //数组第二项即吸附元素选择器或者DOM
-                                    area: ['600px', '560px']
+                                    content: '登录成功' //数组第二项即吸附元素选择器或者DOM
                                 });
                                 location.href = 'http://localhost:8080/index2.jsp';
                             } else {
                                 layer.open({
                                     title: '提示消息',
-                                    type: 2,
-                                    content: '登录失败', //数组第二项即吸附元素选择器或者DOM
-                                    area: ['600px', '560px']
+                                    content: '登录失败' //数组第二项即吸附元素选择器或者DOM
                                 });
                             }
                         }

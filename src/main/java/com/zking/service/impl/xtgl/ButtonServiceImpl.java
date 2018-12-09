@@ -7,6 +7,8 @@ import com.zking.service.xtgl.IButtonsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("ButtonServiceImpl")
 public class ButtonServiceImpl implements IButtonsService{
 
@@ -46,5 +48,10 @@ public class ButtonServiceImpl implements IButtonsService{
     @Override
     public int editButtonMenu(Buttons buttons) {
         return ibs.editButtonMenu(buttons);
+    }
+
+    @Override
+    public List<Buttons> findButtonsByPersCoding(String PersCoding) {
+        return ibs.findButtonsByPersCoding(PersCoding);
     }
 }
